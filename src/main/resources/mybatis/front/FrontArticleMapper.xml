@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.front.mapper.IFrontArticleMapper">
+
+    <resultMap type="com.ruoyi.project.front.entity.FrontArticleEntity" id="FrontArticleMap">
+        <result property="id" column="id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="img" column="img"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="roleSort" column="role_sort"/>
+        <result property="menuParentId" column="menu_parent_id"/>
+    </resultMap>
+
+    <sql id="base_column">
+        `id`,
+        `menu_id`,
+        `name`,
+        `url`,
+        `img`,
+        `is_delete`,
+        `role_sort`,
+        `menu_parent_id`
+    </sql>
+
+    <sql id="table_name">`ry`.`front_article`</sql>
+
+    <sql id="base_where">
+        <where>
+            <if test="arg.id != null">
+                and `id` = #{arg.id}
+            </if>
+            <if test="arg.menuId != null">
+                and `menu_id` = #{arg.menuId}
+            </if>
+            <if test="arg.name != null and arg.name != ''">
+                and `name` = #{arg.name}
+            </if>
+            <if test="arg.url != null and arg.url != ''">
+                and `url` = #{arg.url}
+            </if>
+            <if test="arg.img != null and arg.img != ''">
+                and `img` = #{arg.img}
+            </if>
+            <if test="arg.isDelete != null">
+                and `is_delete` = #{arg.isDelete}
+            </if>
+            <if test="arg.roleSort != null">
+                and `role_sort` = #{arg.roleSort}
+            </if>
+            <if test="arg.menuParentId != null">
+                and `menu_parent_id` = #{arg.menuParentId}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByCondition" resultMap="FrontArticleMap">
+        select
+        <include refid="base_column"/>
+        from <include refid="table_name"/>
+        <include refid="base_where"/>
+    </select>
+
+    <select id="selectByConditionPage" resultMap="FrontArticleMap">
+        select
+        <include refid="base_column"/>
+        from
+        <include refid="table_name"/>
+        <where>
+            <if test="arg.menuId!=null">
+                menu_id = #{arg.menuId}
+            </if>
+        </where>
+        limit #{page.start},#{page.size}
+    </select>
+
+    <delete id="deleteByCondition">
+        delete from <include refid="table_name"/>
+        <include refid="base_where"/>
+    </delete>
+
+    <update id="updateBatch">
+        <foreach collection="arg" item="item">
+            update <include refid="table_name"/>
+            <set>
+                <if test="arg.id != null">
+                    and `id `= #{arg.id},
+                </if>
+                <if test="arg.menuId != null">
+                    and `menu_id `= #{arg.menuId},
+                </if>
+                <if test="arg.name != null and arg.name != ''">
+                    and `name `= #{arg.name},
+                </if>
+                <if test="arg.url != null and arg.url != ''">
+                    and `url `= #{arg.url},
+                </if>
+                <if test="arg.img != null and arg.img != ''">
+                    and `img `= #{arg.img},
+                </if>
+                <if test="arg.isDelete != null">
+                    and `is_delete `= #{arg.isDelete},
+                </if>
+                <if test="arg.roleSort != null">
+                    and `role_sort `= #{arg.roleSort},
+                </if>
+                <if test="arg.menuParentId != null">
+                    and `menu_parent_id `= #{arg.menuParentId}
+                </if>
+            </set>
+            <where>id = #{item.id}</where>
+        </foreach>
+    </update>
+
+    <insert id="insertByCondition" keyProperty="id" parameterType="com.ruoyi.project.front.entity.FrontArticleEntity" useGeneratedKeys="true">
+        insert into <include refid="table_name"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="arg.menuId != null">
+                    `menu_id`,
+                </if>
+                <if test="arg.name != null and arg.name != ''">
+                    `name`,
+                </if>
+                <if test="arg.url != null and arg.url != ''">
+                    `url`,
+                </if>
+                <if test="arg.img != null and arg.img != ''">
+                    `img`,
+                </if>
+                <if test="arg.isDelete != null">
+                    `is_delete`,
+                </if>
+                <if test="arg.roleSort != null">
+                    `role_sort`,
+                </if>
+                <if test="arg.menuParentId != null">
+                    `menu_parent_id`,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" >
+                <if test="arg.menuId != null">
+                    #{arg.menuId},
+                </if>
+                <if test="arg.name != null and arg.name != ''">
+                    #{arg.name},
+                </if>
+                <if test="arg.url != null and arg.url != ''">
+                    #{arg.url},
+                </if>
+                <if test="arg.img != null and arg.img != ''">
+                    #{arg.img},
+                </if>
+                <if test="arg.isDelete != null">
+                    #{arg.isDelete},
+                </if>
+                <if test="arg.roleSort != null">
+                    #{arg.roleSort},
+                </if>
+                <if test="arg.menuParentId != null">
+                    #{arg.menuParentId}
+                </if>
+        </trim>
+    </insert>
+</mapper>
+

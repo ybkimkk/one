@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.system.frontArticle.mapper.FrontArticleMapper">
+
+    <resultMap type="FrontArticle" id="FrontArticleResult">
+        <result property="id" column="id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="menuParentId" column="menu_parent_id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="img" column="img"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="roleSort" column="role_sort"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuParentName" column="menu_parent_name"/>
+    </resultMap>
+
+    <sql id="selectFrontArticleVo">
+        select id, menu_id,menu_parent_id, name, url, img,is_delete,role_sort
+        from front_article
+    </sql>
+
+    <select id="selectFrontArticleList" parameterType="FrontArticle" resultMap="FrontArticleResult">
+        SELECT
+        a.id,
+        a.menu_id,
+        a.menu_parent_id,
+        a.`name`,
+        a.url,
+        a.img,
+        a.is_delete,
+        a.role_sort,
+        fm.menu_name,
+        fm1.menu_name AS menu_parent_name
+        FROM
+        front_article AS a
+        JOIN front_menu AS fm ON fm.menu_id = a.menu_id
+        JOIN front_menu AS fm1 ON fm.parent_id = fm1.menu_id
+        <where>
+            <if test="id != null ">and a.id = #{id}</if>
+            <if test="menuId != null ">and a.menu_id = #{menuId}</if>
+            <if test="menuParentId != null ">a.menu_parent_id = #{menuParentId}</if>
+            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="url != null  and url != ''">and a.url = #{url}</if>
+            <if test="isDelete != null and isDelete != 2">and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+
+    <select id="selectFrontArticleById" parameterType="Long" resultMap="FrontArticleResult">
+        <include refid="selectFrontArticleVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFrontArticle" parameterType="FrontArticle" useGeneratedKeys="true" keyProperty="id">
+        insert into front_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="menuId != null">menu_id,</if>
+            <if test="menuParentId != null">menu_parent_id,</if>
+            <if test="name != null">name,</if>
+            <if test="url != null">url,</if>
+            <if test="img != null">img,</if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="menuId != null">#{menuId},</if>
+            <if test="menuParentId != null">#{menuParentId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="url != null">#{url},</if>
+            <if test="img != null">#{img},</if>
+        </trim>
+    </insert>
+
+    <update id="updateFrontArticle" parameterType="FrontArticle">
+        update front_article
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="menuId != null">menu_id = #{menuId},</if>
+            <if test="menuParentId != null">menu_parent_id = #{menuParentId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="img != null">img = #{img},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFrontArticleById" parameterType="Long">
+        delete
+        from front_article
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteFrontArticleByIds" parameterType="String">
+        delete from front_article where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
