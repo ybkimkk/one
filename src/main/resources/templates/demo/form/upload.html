@@ -43,7 +43,7 @@
     $(document).ready(function () {
     	// 单图上传
     	$("#singleFile").fileinput({
-            uploadUrl: ctx + 'common/upload',
+            uploadUrl: ctx + '/admin/common/upload',
             maxFileCount: 1,
             autoReplace: true
         }).on('fileuploaded', function (event, data, previewId, index) {
@@ -58,7 +58,7 @@
         
         // 多图上传
         $("#multipleFile").fileinput({
-            uploadUrl: ctx + 'common/uploads',
+            uploadUrl: ctx + '/admin/common/uploads',
             uploadAsync: false
         }).on('filebatchuploadsuccess', function (event, data, previewId, index) {
         	var rsp = data.response;

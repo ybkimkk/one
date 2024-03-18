@@ -83,9 +83,10 @@
                 if (fileType === 'image/jpeg' || fileType === 'image/png') {
                     let formData = new FormData();
                     formData.append('file', file);
+                    formData.append('deleteFile', '');
                     let fileUpload = new Promise(function (resolve, reject) {
                         $.ajax({
-                            url: "/common/upload",
+                            url: "/admin/common/upload",
                             type: 'POST',
                             data: formData,
                             contentType: false,
@@ -120,8 +121,8 @@
         }
     }
 
-    function add(data){
-        ajaxRequest("/system/front/article/add",data,"POST").then(function (res){
+    function add(data) {
+        ajaxRequest("/admin/system/front/article/add", data, "POST").then(function (res) {
             $.operate.successCallback(res);
         })
     }

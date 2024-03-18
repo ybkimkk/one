@@ -110,7 +110,7 @@
                     formData.append('deleteFile', frontArticle.img);
                     let fileUpload = new Promise(function (resolve, reject) {
                         $.ajax({
-                            url: "/common/upload",
+                            url: "/admin/common/upload",
                             type: 'POST',
                             data: formData,
                             contentType: false,

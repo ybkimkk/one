@@ -83,6 +83,7 @@ public class CommonController
                 String deletePath = filePath + deleteFile.replace("/upload","");
                 deletePath = deletePath.replace("/profile","");
                 if (System.getProperty("os.name").toLowerCase().contains("windows")){
+                    filePath = "D:/ruoyi/uploadPath/upload";
                     deletePath = deletePath.replace("/", "\\\\");
                 }
                 File originFile = new File(deletePath);

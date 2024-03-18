@@ -221,7 +221,7 @@
 #if($column.edit && !$column.superColumn && !$column.pk && $column.htmlType == "upload")
 
         $(".file-upload").fileinput({
-            uploadUrl: ctx + 'common/upload',
+            uploadUrl: ctx + '/admin/common/upload',
             maxFileCount: 1,
             autoReplace: true
         }).on('fileuploaded', function (event, data, previewId, index) {
@@ -249,7 +249,7 @@
                     	data.append("file", files[0]);
                     	$.ajax({
                             type: "post",
-                            url: ctx + "admin/common/upload",
+                            url: ctx + "/admin/common/upload",
                     		data: data,
                     		cache: false,
                     		contentType: false,
