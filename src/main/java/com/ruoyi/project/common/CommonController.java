@@ -78,17 +78,6 @@ public class CommonController
         try
         {
             String filePath = RuoYiConfig.getUploadPath();
-            if (StringUtils.isNotEmpty(deleteFile)){
-
-                String deletePath = filePath + deleteFile.replace("/upload","");
-                deletePath = deletePath.replace("/profile","");
-                if (System.getProperty("os.name").toLowerCase().contains("windows")){
-                    filePath = "D:/ruoyi/uploadPath/upload";
-                    deletePath = deletePath.replace("/", "\\\\");
-                }
-                File originFile = new File(deletePath);
-                originFile.delete();
-            }
             // 上传文件路径
 
             // 上传并返回新文件名称

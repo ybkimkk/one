@@ -21,10 +21,7 @@
             margin: 0;
         }
 
-        /*.el-col{*/
-        /*    padding: 8px;*/
-        /*}*/
-        html, body, .el-container, .el-aside, .app, .my-menu, .el-menu {
+        html, body, .el-aside, .app, .my-menu, .el-menu {
             height: 100%;
         }
 
@@ -79,63 +76,166 @@
             text-decoration: none;
         }
 
+        .menu-content {
+            font-size: 12px;
+            display: inline-block;
+            padding-left: 10px;
+        }
+
+        .list-content {
+            font-size: 12px;
+        }
+
+        .square-container {
+            padding-top: 100%; /* 设置容器高度为宽度的百分比 */
+            position: relative;
+            background-color: lightgray; /* 可以添加背景颜色来显示容器的尺寸 */
+        }
+
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+        }
+
+        .content img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .el-card__body, .el-main {
+            padding: 5px;
+        }
+
+        .el-submenu .el-menu-item {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .el-submenu {
+            padding-left: 0 !important;
+        }
+
+        .el-menu-item, .el-submenu__title {
+            height: 40px !important;
+            line-height: 40px !important;
+        }
+
+        .el-menu-item {
+            min-width: 100% !important;
+            padding: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .el-menu-item-group__title {
+            padding: 0 !important;
+        }
+
+        .el-submenu__title {
+            min-width: 100% !important;
+            padding: 0 !important;
+            padding-left: 0 !important;
+        }
+
+        .el-header {
+            text-align: center;
+            line-height: 60px;
+            background-color: rgb(81, 168, 237);
+            color: white;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        .el-menu-item:hover, .el-submenu__title:hover {
+            color: #74abc4 !important;
+            background-color: #FFFFFF !important;
+
+        }
+
+        .search-bar {
+            padding: 0 10px;
+            height: 70px;
+            line-height: 70px;
+        }
 
     </style>
 </head>
 <body>
 <div class="app">
-    <el-container>
-        <el-aside width="200px">
-            <el-row style="height: 100%">
-                <el-col :span="24" style="height: 100%">
-                    <el-menu
-                            @class="my-menu"
-                            background-color="#545c64"
-                            text-color="#fff"
-                            active-text-color="#ffd04b"
-                            default-active="2"
-                            :router="true"
-                            :unique-opened="true">
-                        <el-submenu v-if="parent.menuType === 'M'" v-for="(parent,parentIndex) in menuList"
-                                    :key="parent.id" :index="parentIndex">
-                            <template slot="title">
-                                <span>{{parent.menuName}}</span>
-                            </template>
-                            <el-menu-item-group v-if="parent.child.length !== 0">
-                                <el-menu-item v-for="(child , childIndex) in parent.child" :key="child.id"
-                                              @click="push(child)">
-                                    {{child.menuName}}
-                                </el-menu-item>
-                            </el-menu-item-group>
-                        </el-submenu>
-                        <el-menu-item v-else @click="push(parent)">
-                            {{parent.menuName}}
-                        </el-menu-item>
-                    </el-menu>
-                </el-col>
-            </el-row>
-        </el-aside>
-        <el-container>
+    <el-container style="height: 100%; display: -webkit-box">
+        <el-header height="60px"><h2>LOGO</h2></el-header>
+        <div class="search-bar">
+            <el-input placeholder="请输入内容" v-model="search" class="input-with-select">
+                <el-button slot="append" @click="doSearch" icon="el-icon-search"></el-button>
+            </el-input>
+        </div>
+        <el-container style="display: inherit">
+            <el-aside width="120px">
+                <el-row style="height: 100%">
+                    <el-col :span="24" style="height: 100%">
+                        <el-menu
+                                @class="my-menu"
+                                background-color="#F3F4F6"
+                                text-color="#0E0F11"
+                                active-text-color="#FEFFFF"
+                                :router="true"
+                                :unique-opened="true"
+                                :collapse="isCollapse"
+                                :default-active="activeMenu"
+                                @open="handleOpen"
+                        >
+                            <el-submenu style="padding-left: 10px" v-if="parent.menuType === 'M'"
+                                        v-for="(parent,parentIndex) in menuList"
+                                        :key="parent.id" :index="parent.menuId">
+                                <template slot="title">
+                                    <span class="menu-content">{{parent.menuName}}</span>
+                                </template>
+                                <el-menu-item-group v-if="parent.child.length !== 0">
+                                    <el-menu-item style="padding-left: 20px"
+                                                  v-for="(child , childIndex) in parent.child"
+                                                  :key="child.id"
+                                                  :index="child.menuId"
+                                                  @click="push(child)">
+                                        <span class="menu-content">{{child.menuName}}</span>
+                                    </el-menu-item>
+                                </el-menu-item-group>
+                            </el-submenu>
+                            <el-menu-item v-else @click="push(parent)">
+                                {{parent.menuName}}
+                            </el-menu-item>
+                        </el-menu>
+                    </el-col>
+                </el-row>
+            </el-aside>
             <el-main>
                 <el-row v-if="articleList.list.length>0">
-                    <el-col class="col-card" th:each="article : ${articleList.getList()}" :xs="12" :sm="6" :md="3">
-                        <div class="card">
-                            <div>
+                    <el-col class="col-card" th:each="article : ${articleList.getList()}" :xs="8" :sm="4" :md="2"
+                            :lg="1">
+                        <div class="square-container">
+                            <div class="content">
                                 <img th:src="${article.getImg()}">
                             </div>
-                            <div style="text-align: center">
-                                <a th:href="${article.getUrl()}" target="_blank" th:text="${article.getName()}"></a>
-                            </div>
+                        </div>
+                        <div style="text-align: center">
+                            <a class="list-content" th:href="${article.getUrl()}" target="_blank"
+                               th:text="${article.getName()}"></a>
                         </div>
                     </el-col>
                     <el-col style="text-align: center;margin-top: 50px">
                         <el-pagination
-                                :small="true"
-                                background
+                                small
                                 layout="prev, pager, next"
-                                :total="1000"
+                                :page-count="articleList.pageCount"
+                                :page-size="articleList.list.length"
                                 :current-page="currentPage"
+                                :pager-count="5"
                                 @current-change="changePage"
+
                         >
                         </el-pagination>
                     </el-col>
@@ -145,6 +245,7 @@
                 </el-row>
             </el-main>
         </el-container>
+
     </el-container>
 </div>
 </body>
@@ -166,7 +267,9 @@
             menuList: /*[[${menuList}]]*/,
             articleList:/*[[${articleList}]]*/,
             currentPage: get === {} ? 1 : get.page,
-
+            isCollapse: false,
+            activeMenu:/*[[${menuId}]]*/,
+            search: ''
         },
         methods: {
             push(e) {
@@ -174,6 +277,12 @@
             },
             changePage(e) {
                 window.location.href = window.location.pathname + `?page=${e}`
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            doSearch() {
+                window.location.search = `?search=${this.search}`
             }
 
         },

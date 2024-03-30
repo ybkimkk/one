@@ -17,7 +17,10 @@ public class FrontArticlePageEntity {
     private Long page;
     private Long size;
     private Long count;
+    private Long pageCount;
     private Long menuId;
+    private String name;
+    private String url;
     private List<FrontArticleResponseEntity> list;
 }
 

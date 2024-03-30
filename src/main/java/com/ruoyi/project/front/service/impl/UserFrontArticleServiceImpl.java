@@ -1,7 +1,5 @@
 package com.ruoyi.project.front.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ruoyi.common.utils.text.Convert;
 import com.ruoyi.project.front.convert.FrontArticleConvert;
 import com.ruoyi.project.front.entity.FrontArticleEntity;
@@ -9,18 +7,13 @@ import com.ruoyi.project.front.entity.common.R;
 import com.ruoyi.project.front.entity.request.FrontArticleRequestEntity;
 import com.ruoyi.project.front.entity.request.page.FrontArticlePageEntity;
 import com.ruoyi.project.front.entity.response.FrontArticleResponseEntity;
-
 import com.ruoyi.project.front.mapper.IFrontArticleMapper;
 import com.ruoyi.project.front.service.UserFrontArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author jinyongbin
@@ -37,9 +30,7 @@ public class UserFrontArticleServiceImpl implements UserFrontArticleService {
     @Override
     public R<List<FrontArticleResponseEntity>> selectByCondition(FrontArticleRequestEntity request) throws NullPointerException {
         List<FrontArticleEntity> frontArticle = frontArticleMapper.selectByCondition(FrontArticleConvert.INSTANCE.reqToDo(request));
-        if (CollectionUtils.isEmpty(frontArticle)) {
-            return R.error("NO DATA");
-        }
+
         return R.ok(FrontArticleConvert.INSTANCE.doListToRespList(frontArticle));
     }
 
@@ -55,16 +46,19 @@ public class UserFrontArticleServiceImpl implements UserFrontArticleService {
     @Override
     public R<FrontArticlePageEntity> selectByPage(FrontArticlePageEntity request) throws NullPointerException {
         Map<String, Long> map = new HashMap<>();
-        Long size = Objects.isNull(request.getSize()) ? 20 : request.getSize();
+        Long size = Objects.isNull(request.getSize()) ? 100 : request.getSize();
         Long page = Objects.isNull(request.getPage()) ? 1 : request.getPage();
         map.put("start", (page - 1) * size);
-        map.put("size",  size);
+        map.put("size", size);
         List<FrontArticleResponseEntity> doPage = frontArticleMapper.selectByConditionPage(request, map);
-
-        R<List<FrontArticleResponseEntity>> listR = this.selectByCondition(new FrontArticleRequestEntity());
+        FrontArticleRequestEntity frontArticleRequestEntity = new FrontArticleRequestEntity();
+        frontArticleRequestEntity.setMenuId(request.getMenuId());
+        frontArticleRequestEntity.setUrl(request.getUrl());
+        frontArticleRequestEntity.setName(request.getName());
+        R<List<FrontArticleResponseEntity>> listR = this.selectByCondition(frontArticleRequestEntity);
         request.setCount(Convert.toLong(listR.getData().size()));
         request.setList(doPage);
-
+        request.setPageCount(Convert.toLong(Math.ceil(Convert.toDouble(request.getCount()) / size)));
         return R.ok(request);
     }
 }

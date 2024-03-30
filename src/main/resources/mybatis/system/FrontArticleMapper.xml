@@ -42,8 +42,8 @@
             <if test="id != null ">and a.id = #{id}</if>
             <if test="menuId != null ">and a.menu_id = #{menuId}</if>
             <if test="menuParentId != null ">a.menu_parent_id = #{menuParentId}</if>
-            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
-            <if test="url != null  and url != ''">and a.url = #{url}</if>
+            <if test="name != null  and name != ''">and a.name like concat('%', #{name}, '%')</if>
+            <if test="url != null  and url != ''">and a.url like concat('%', #{url} ,'%')</if>
             <if test="isDelete != null and isDelete != 2">and is_delete = #{isDelete}</if>
         </where>
     </select>

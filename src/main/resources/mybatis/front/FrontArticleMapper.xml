@@ -28,6 +28,7 @@
 
     <sql id="base_where">
         <where>
+            menu_id IN ( SELECT menu_id FROM front_menu )
             <if test="arg.id != null">
                 and `id` = #{arg.id}
             </if>
@@ -35,10 +36,9 @@
                 and `menu_id` = #{arg.menuId}
             </if>
             <if test="arg.name != null and arg.name != ''">
-                and `name` = #{arg.name}
-            </if>
-            <if test="arg.url != null and arg.url != ''">
-                and `url` = #{arg.url}
+              and ( `name` like concat('%',#{arg.name},'%')
+                or
+                `url` like concat('%',#{arg.url},'%') )
             </if>
             <if test="arg.img != null and arg.img != ''">
                 and `img` = #{arg.img}
@@ -68,9 +68,16 @@
         from
         <include refid="table_name"/>
         <where>
-            <if test="arg.menuId!=null">
-                menu_id = #{arg.menuId}
-            </if>
+            <trim suffixOverrides="and">
+                <if test="arg.menuId!=null">
+                    menu_id = #{arg.menuId} and
+                </if>
+                <if test="arg.name !=null and arg.name !=''">
+                    `name` like concat('%',#{arg.name},'%')
+                    or
+                    `url` like concat('%',#{arg.url},'%')
+                </if>
+            </trim>
         </where>
         limit #{page.start},#{page.size}
     </select>
