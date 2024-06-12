@@ -40,7 +40,7 @@ import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 
 /**
  * 权限配置加载
- * 
+ *
  * @author ruoyi
  */
 @Configuration
@@ -294,6 +294,7 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
         filterChainDefinitionMap.put("/admin/login", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/**", "anon");
         filterChainDefinitionMap.put("/api/**", "anon,captchaValidate");
         // 注册相关
         filterChainDefinitionMap.put("/admin/register", "anon,captchaValidate");
@@ -309,8 +310,8 @@ public class ShiroConfig
         filters.put("logout", logoutFilter());
         shiroFilterFactoryBean.setFilters(filters);
 
-        // 所有请求需要认证
-        filterChainDefinitionMap.put("/**", "user,kickout,onlineSession,syncOnlineSession");
+        // 所有请求需要认证 TODO
+//        filterChainDefinitionMap.put("/**", "user,kickout,onlineSession,syncOnlineSession");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;

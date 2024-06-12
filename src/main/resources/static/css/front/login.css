@@ -1,0 +1,101 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+
+
+.login-bar {
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8); /* 透明度可按需调整 */
+    transform: translate(-50%, -50%);
+    padding: 15px 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    /*min-height: 500px;*/
+    min-width: 400px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s, background-color 0.3s; /* 添加过渡效果 */
+}
+
+/* 获得焦点时的样式 */
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #007bff; /* 边框变为蓝色 */
+    background-color: #f8f9fa; /* 背景轻微变亮 */
+    outline: none; /* 移除默认轮廓，如果需要的话 */
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.login-space-between {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+a:hover {
+    color: #0056b3; /* 深蓝，对比更强烈 */
+    text-decoration: underline;
+}
+
+
+/* 鼠标按下时的样式 */
+a:active {
+    color: #003366; /* 更深的按下颜色 */
+}
+
+.logo-title {
+    color: #3b3d0d;
+    font-size: 20px;
+    text-align: center;
+}
+
+.logo-sub-title {
+    font-size: 12px;
+    margin-bottom: 60px;
+}
+
+.login-bottom {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 50px
+}
+
+.center {
+    text-align: center;
+}

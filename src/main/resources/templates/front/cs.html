@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="~{/front/common/mainLayout}"
+>
+<th:block th:include="front/common/mainLayout :: head"/>
+<head>
+    <style>
+        body {
+            background-image: url("/img/front/bg.png");
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+<th:block th:include="front/common/mainLayout :: header"/>
+<th:block layout:fragment="main">
+    <div class="login-bar main-bar">
+    </div>
+</th:block>
+</body>
+</html>
+

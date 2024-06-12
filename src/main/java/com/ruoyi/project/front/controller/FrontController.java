@@ -1,60 +1,80 @@
 package com.ruoyi.project.front.controller;
 
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.common.utils.text.Convert;
-import com.ruoyi.framework.web.controller.BaseController;
-import com.ruoyi.project.front.entity.common.R;
-import com.ruoyi.project.front.entity.request.FrontMenuRequestEntity;
-import com.ruoyi.project.front.entity.request.page.FrontArticlePageEntity;
-import com.ruoyi.project.front.entity.response.FrontMenuResponseEntity;
-import com.ruoyi.project.front.service.UserFrontArticleService;
-import com.ruoyi.project.front.service.UserFrontMenuService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ruoyi.common.utils.MessageUtils;
+import com.ruoyi.framework.web.controller.BaseFrontController;
+import com.ruoyi.project.front.util.TextFileReader;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import java.util.Locale;
 
 @Controller
-public class FrontController extends BaseController {
-    private final static String prefix = "front/";
+public class FrontController extends BaseFrontController {
 
-    @Autowired
-    private UserFrontMenuService frontMenuService;
-
-    @Autowired
-    private UserFrontArticleService articleService;
-
-    @GetMapping("/list/{menuId}")
-    public String index(
-            @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
-            @RequestParam(name = "search", required = false, defaultValue = "") String search,
-            @PathVariable(name = "menuId") String menuId,
-            Model model) {
-        R<List<FrontMenuResponseEntity>> menuList = frontMenuService.selectByCondition(new FrontMenuRequestEntity());
-        model.addAttribute("menuList", menuList.getData());
-        FrontArticlePageEntity frontArticleEntity = new FrontArticlePageEntity();
-        frontArticleEntity.setMenuId(Convert.toLong(menuId));
-        frontArticleEntity.setPage(page);
-        if (StringUtils.isNotEmpty(search)) {
-            frontArticleEntity.setName(search);
-            frontArticleEntity.setUrl(search);
+    @GetMapping("/")
+    public String index(Model model) {
+        for (int i = 6; i <= 18; i++) {
+            model.addAttribute("f" + i, MessageUtils.message("f." + i));
         }
-
-        R<FrontArticlePageEntity> articleList = articleService.selectByPage(frontArticleEntity);
-        model.addAttribute("articleList", articleList.getData());
-        model.addAttribute("menuId", menuId);
         return prefix + "index";
     }
 
-    @GetMapping("/")
-    public String index(
-            @RequestParam(name = "page", required = false, defaultValue = "1") Long page,
-            @RequestParam(name = "search", required = false, defaultValue = "") String search,
-            Model model) {
-        return this.index(page, search, null, model);
+    @GetMapping("/about")
+    public String about(Model model) {
+        for (int i = 19; i <= 21; i++) {
+            model.addAttribute("f" + i, MessageUtils.message("f." + i));
+        }
+        return prefix + "about";
     }
+
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        for (int i = 34; i <= 41; i++) {
+            model.addAttribute("f" + i, MessageUtils.message("f." + i));
+        }
+        return prefix + "login";
+    }
+
+    @PostMapping("/doLogin")
+    public String doLogin(Model model) {
+        return index(model);
+    }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        for (int i = 42; i <= 87; i++) {
+            model.addAttribute("f" + i, MessageUtils.message("f." + i));
+        }
+        return prefix + "register";
+    }
+
+    @GetMapping("/forgot")
+    public String forgot(Model model) {
+        model.addAttribute("flag", "forgot");
+        return prefix + "forgot";
+    }
+
+    @GetMapping("/ts")
+    public String ts(Model model) {
+        for (int i = 88; i <= 91; i++) {
+            model.addAttribute("f" + i, MessageUtils.message("f." + i));
+        }
+
+        Locale locale = LocaleContextHolder.getLocale();;
+        model.addAttribute("f90", TextFileReader.readFileContent("90", locale.getLanguage()));
+        return prefix + "ts";
+    }
+
+    @GetMapping("/cs")
+    public String cs(Model model) {
+        for (int i = 22; i <= 28; i++) {
+            model.addAttribute("f" + i, MessageUtils.message("f." + i));
+        }
+        return prefix + "cs";
+    }
+
 }
