@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:fragment="head(bg)">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -9,33 +9,105 @@
     <link rel="stylesheet" th:href="@{/css/front/my.css}">
     <link rel="stylesheet" th:href="@{/css/front/login.css}">
     <link rel="stylesheet" th:href="@{/css/front/other.css}">
+    <link rel="stylesheet" th:href="@{/font/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <script th:src="@{/js/front/global.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <link rel="icon" href="data:,">
     <title th:text="${title}"></title>
+
     <style th:fragment="style">
         body {
             position: relative;
-            background-image: url("${bg}");
             background-size: 100% 100%;
         }
     </style>
 </head>
-<body>
+<body th:style="'background-image: url(' + ${bg} + ');'">
 <header>
     <div class="header-menu">
         <div>
-            <a th:href="@{/about}" th:text="${f1}"></a>
-            <a th:href="@{/ts}" th:text="${f2}"></a>
+            <a th:href="@{/}">Home</a>
+
+            <button data-toggle="modal" data-target="#aboutUs">
+                <i class="fa fa-male" aria-hidden="true"></i> [[${f1}]]
+            </button>
+            <button data-toggle="modal" data-target="#tc">
+                <i class="fa fa-quora" aria-hidden="true"></i> [[${f2}]]
+            </button>
         </div>
         <div>
+
             <a th:href="@{/login}" th:text="${f3}"></a>
-            <a th:href="@{/}" th:text="${f4}"></a>
-            <a th:href="@{/cs}" th:text="${f5}"></a>
+            <div class="dropdown" style="display: inline">
+                <button role="button" data-toggle="dropdown" aria-expanded="false">
+                    <th:block th:each="map : ${lang}">
+                        <th:block th:each="entry : ${map.entrySet()}">
+                            <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
+                            <th:block th:if="${entry.key == currentLang}"><i class="fa fa-globe" aria-hidden="true"></i> [[${entry.value}]]
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </button>
+
+                <div class="dropdown-menu" style="z-index: 100;">
+                    <div th:each="map : ${lang}">
+                        <th:block th:each="entry : ${map.entrySet()}">
+                            <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
+                            <a  th:href="${'?lang='+entry.key}" style="color: black;"><i class="fa fa-globe" aria-hidden="true"></i> [[${entry.value}]]</a>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+            <a th:href="@{/cs}">
+                <i class="fa fa-envelope" aria-hidden="true"></i> [[${f5}]]
+            </a>
+        </div>
+    </div>
+
+    <div th:each="map : ${lang}">
+        <div th:each="entry : ${map.entrySet()}">
+            <p th:if="${entry.key == currentLang}" th:text="${entry.key} + ': ' + ${entry.value}"></p>
         </div>
     </div>
 </header>
 <main layout:fragment="main">
+
 </main>
 <footer>
+
+
+    <!-- aboutUs  Modal -->
+    <div class="modal fade" id="aboutUs" tabindex="-1" aria-labelledby="aboutUs" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" th:text="${f19}"></h4>
+                </div>
+                <div class="modal-body">
+                    <p th:text="${f20}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- tc  Modal -->
+    <div class="modal fade" id="tc" tabindex="-1" aria-labelledby="tc" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" th:text="${f89}"></h4>
+                </div>
+                <div class="modal-body" style="">
+                    <p th:text="${f90}"></p>
+                </div>
+                <div class="modal-footer" style="text-align: center;">
+                    <p th:text="${f91}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
 </body>
 </html>

@@ -1,8 +1,3 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-
 html, body {
     height: 100%;
     background-color: #f8f9fa;
@@ -11,7 +6,7 @@ html, body {
 /* 基础样式保持不变 */
 .main-bar {
     min-width: 400px;
-    padding: 100px 50px 100px 50px; /* 确保padding书写无误 */
+    padding: 50px; /* 确保padding书写无误 */
     max-height: 80%;
     overflow-y: auto;
     border-radius: 0;
@@ -41,12 +36,6 @@ html, body {
 .main-bar {
     scrollbar-width: thin; /* 设置滚动条宽度 */
     scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1); /* 滑块和轨道颜色 */
-}
-
-
-.main-bar p {
-    font-size: 18px;
-    line-height: 40px;
 }
 
 .main-bar-title {

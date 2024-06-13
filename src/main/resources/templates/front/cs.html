@@ -4,18 +4,39 @@
       layout:decorator="~{/front/common/mainLayout}"
 >
 <th:block th:include="front/common/mainLayout :: head"/>
-<head>
-    <style>
-        body {
-            background-image: url("/img/front/bg.png");
-            background-size: 100% 100%;
-        }
-    </style>
-</head>
 <body>
 <th:block th:include="front/common/mainLayout :: header"/>
 <th:block layout:fragment="main">
     <div class="login-bar main-bar">
+        <div class="logo-title">
+            <p th:text="${f22}"></p>
+        </div>
+        <div class="logo-title logo-sub-title">
+            <p th:text="${f23}"></p>
+        </div>
+        <div class="center" style="margin: 20px 0">
+            <p th:text="${f24}"></p>
+        </div>
+        <form style="margin-top: 30px">
+            <div>
+                <label for="text"></label>
+                <textarea id="text" style="resize: none;" rows="10" th:placeholder="${f25}"></textarea>
+            </div>
+            <div>
+                <label for="email"></label>
+                <input id="email" type="text" th:placeholder="${f26}"/>
+            </div>
+            <div>
+                <div class="login-space-between" style="justify-content: center">
+                    <div style="margin: 0 20px">
+                        <input onclick="push()" type="button" th:value="${f27}">
+                    </div>
+                    <div style="margin: 0 20px">
+                        <input onclick="back()" type="button" th:value="${f28}">
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </th:block>
 </body>

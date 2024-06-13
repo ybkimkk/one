@@ -31,7 +31,7 @@ server:
       max: 800
       # Tomcat启动初始化的线程数，默认值10
       min-spare: 100
- 
+
 # 日志配置
 logging:
   level:
@@ -56,6 +56,8 @@ spring:
   messages:
     # 国际化资源文件路径
     basename: static/i18n/messages
+    fallback-to-system-locale: true
+    use-code-as-default-message: true
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
