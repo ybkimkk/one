@@ -9,19 +9,30 @@
     <link rel="stylesheet" th:href="@{/css/front/my.css}">
     <link rel="stylesheet" th:href="@{/css/front/login.css}">
     <link rel="stylesheet" th:href="@{/css/front/other.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="icon" href="data:,">
     <title th:text="${title}"></title>
     <style>
-        body {
-            position: relative;
-            background-image: url("/img/front/bg.png");
-            background-size: 100% 100%;
+
+        /* 应用动画到元素 */
+        .flow-background {
+            background: #EF3B36;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #FFFFFF, #EF3B36);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #FFFFFF, #EF3B36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            animation: flow 10s linear infinite;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
-<body>
+<body class="flow-background">
 <div layout:fragment="main" class="login-bar">
     123
 </div>
 </body>
+<script layout:fragment="script">
+
+</script>
 </html>

@@ -1,113 +1,128 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/front/my.css}">
-    <link rel="stylesheet" th:href="@{/css/front/login.css}">
-    <link rel="stylesheet" th:href="@{/css/front/other.css}">
-    <link rel="stylesheet" th:href="@{/font/css/font-awesome.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
-    <script th:src="@{/js/front/global.js}"></script>
-    <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/front/assets/css/main.css}"/>
+    <noscript>
+        <link rel="stylesheet" th:href="@{/front/assets/css/noscript.css}"/>
+    </noscript>
+    <script th:src="@{/js/front/global.js}"></script>
     <link rel="icon" href="data:,">
     <title th:text="${title}"></title>
-
-    <style th:fragment="style">
-        body {
-            position: relative;
-            background-size: 100% 100%;
-        }
-    </style>
 </head>
-<body th:style="'background-image: url(' + ${bg} + ');'">
-<header>
-    <div class="header-menu">
-        <div>
-            <a th:href="@{/}">Home</a>
+<body>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
 
-            <button data-toggle="modal" data-target="#aboutUs">
-                <i class="fa fa-male" aria-hidden="true"></i> [[${f1}]]
-            </button>
-            <button data-toggle="modal" data-target="#tc">
-                <i class="fa fa-quora" aria-hidden="true"></i> [[${f2}]]
-            </button>
-        </div>
-        <div>
+    <!-- Header -->
+    <header id="header">
+        <div class="inner">
 
-            <a th:href="@{/login}" th:text="${f3}"></a>
-            <div class="dropdown" style="display: inline">
-                <button role="button" data-toggle="dropdown" aria-expanded="false">
-                    <th:block th:each="map : ${lang}">
-                        <th:block th:each="entry : ${map.entrySet()}">
-                            <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
-                            <th:block th:if="${entry.key == currentLang}"><i class="fa fa-globe" aria-hidden="true"></i> [[${entry.value}]]
-                            </th:block>
-                        </th:block>
-                    </th:block>
-                </button>
-
-                <div class="dropdown-menu" style="z-index: 100;">
-                    <div th:each="map : ${lang}">
-                        <th:block th:each="entry : ${map.entrySet()}">
-                            <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
-                            <a  th:href="${'?lang='+entry.key}" style="color: black;"><i class="fa fa-globe" aria-hidden="true"></i> [[${entry.value}]]</a>
-                        </th:block>
-                    </div>
-                </div>
-            </div>
-            <a th:href="@{/cs}">
-                <i class="fa fa-envelope" aria-hidden="true"></i> [[${f5}]]
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <span class="symbol"><img th:src="@{/front/images/logo.svg}" alt=""/></span><span
+                    class="title" th:text="${f34}"></span>
             </a>
+            <!-- Nav -->
+            <nav>
+                <ul>
+                    <li>
+                        <button role="button" data-toggle="dropdown" aria-expanded="false">
+                            <th:block th:each="map : ${lang}">
+                                <th:block th:each="entry : ${map.entrySet()}">
+                                    <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
+                                    <th:block th:if="${entry.key == currentLang}">
+                                        [[${entry.value}]]
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </button>
+                        <div class="dropdown-menu" style="z-index: 100;">
+                            <div th:each="map : ${lang}">
+                                <th:block th:each="entry : ${map.entrySet()}">
+                                    <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
+                                    <a  th:href="${'?lang='+entry.key}" style="color: black;font-size: 1.1rem">[[${entry.value}]]</a>
+                                </th:block>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#menu">Menu</a></li>
+
+                </ul>
+            </nav>
+
         </div>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <h2>Menu</h2>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li>
+                <th:block th:if="${user}!=null">
+                    <a href="javascript:void(0);" th:text="${user.name}"></a>
+                </th:block>
+                <th:block th:if="${user}==null">
+                    <a th:href="@{/login}" th:text="${f3}"></a>
+                </th:block>
+
+            </li>
+            <li>
+                <a th:href="@{/about}" th:text="${f1}"></a>
+            </li>
+            <li>
+                <a th:href="@{/ts}" th:text="${f2}"></a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner" layout:fragment="inner"></div>
     </div>
 
-    <div th:each="map : ${lang}">
-        <div th:each="entry : ${map.entrySet()}">
-            <p th:if="${entry.key == currentLang}" th:text="${entry.key} + ': ' + ${entry.value}"></p>
-        </div>
-    </div>
-</header>
-<main layout:fragment="main">
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <section>
+                <h2>Get in touch</h2>
+                <form method="post" action="/mail">
+                    <div class="fields">
+                        <div class="field half">
+                            <input type="email" name="email" id="email" placeholder="Email"/>
+                        </div>
+                        <div class="field">
+                            <textarea name="message" id="message" placeholder="Message"></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Send" class="primary"/></li>
+                    </ul>
+                </form>
+            </section>
 
-</main>
-<footer>
-
-
-    <!-- aboutUs  Modal -->
-    <div class="modal fade" id="aboutUs" tabindex="-1" aria-labelledby="aboutUs" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" th:text="${f19}"></h4>
-                </div>
-                <div class="modal-body">
-                    <p th:text="${f20}"></p>
-                </div>
-            </div>
+            <ul class="copyright">
+                <li>&copy; Untitled. All rights reserved</li>
+            </ul>
         </div>
-    </div>
-    <!-- tc  Modal -->
-    <div class="modal fade" id="tc" tabindex="-1" aria-labelledby="tc" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" th:text="${f89}"></h4>
-                </div>
-                <div class="modal-body" style="">
-                    <p th:text="${f90}"></p>
-                </div>
-                <div class="modal-footer" style="text-align: center;">
-                    <p th:text="${f91}"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+    </footer>
+</div>
+
+<!-- Scripts -->
+
+<script th:src="@{/front/assets/js/browser.min.js}"></script>
+<script th:src="@{/front/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/front/assets/js/util.js}"></script>
+<script th:src="@{/front/assets/js/main.js}"></script>
 </body>
 </html>

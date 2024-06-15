@@ -1,7 +1,10 @@
 package com.ruoyi.framework.web.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.ruoyi.common.utils.MessageUtils;
+import com.ruoyi.project.front.entity.FrontUser;
 import com.ruoyi.project.front.util.TextFileReader;
+import org.apache.commons.lang3.LocaleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 public class BaseFrontController extends BaseController {
@@ -17,14 +21,9 @@ public class BaseFrontController extends BaseController {
     private MessageSource messageSource;
 
     @ModelAttribute
-    public void addCommonAttributes(Model model, HttpServletRequest request) {
-//        Map<String, String[]> parameterMap = request.getParameterMap();
+    public void addCommonAttributes(Model model, HttpServletRequest request, HttpSession session) {
         Locale locale = LocaleContextHolder.getLocale();
-        getMessage(model, 1, 5);
-        getMessage(model, 19, 21);
-        getMessage(model, 88, 91);
-        model.addAttribute("title", MessageUtils.message("f.8"));
-        model.addAttribute("f90", TextFileReader.readFileContent("90", locale.getLanguage()));
+        LocaleContextHolder.setLocale(LocaleUtils.toLocale(locale.toString()));
         String[] lang = {
                 "lang.en",
                 "lang.zh_CN",
@@ -47,6 +46,20 @@ public class BaseFrontController extends BaseController {
         }
         model.addAttribute("lang", langList);
         model.addAttribute("currentLang", locale.toString());
+
+
+        if (Objects.nonNull(session.getAttribute("user"))) {
+            model.addAttribute("user", JSON.parseObject(session.getAttribute("user").toString(), FrontUser.class));
+        }
+//        Map<String, String[]> parameterMap = request.getParameterMap();
+        getMessage(model, 34, 41);
+        getMessage(model, 1, 5);
+        getMessage(model, 19, 21);
+        getMessage(model, 88, 91);
+        model.addAttribute("title", MessageUtils.message("f.8"));
+        model.addAttribute("f90", TextFileReader.readFileContent("90", locale.getLanguage()));
+        model.addAttribute("f13", TextFileReader.readFileContent("13", locale.getLanguage()));
+
     }
 
     protected void getMessage(Model model, Integer start, Integer end) {

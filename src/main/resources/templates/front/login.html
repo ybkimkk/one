@@ -7,25 +7,26 @@
 <body>
 <div layout:fragment="main">
     <div class="logo-title">
-        <p th:text="${f34}"></p>
+        <img width="200" th:src="@{/img/front/logo.png}" alt="">
     </div>
-    <div class="logo-title logo-sub-title">
-        <p th:text="${f35}"></p>
-    </div>
-    <form action="/doLogin" method="post" style="margin-top: 50px">
-        <div>
+    <form action="/doLogin" method="post" style="margin-top: 30px">
+        <div class="form-group">
             <label for="username"></label>
-            <input id="username" type="text" th:placeholder="${f36}">
+            <input class="form-control" id="username" type="text" th:placeholder="${f36}">
         </div>
-        <div>
-            <label for="password"></label>
-            <input id="password" type="password" th:placeholder="${f37}">
+        <div class="form-group">
+            <label  for="password"></label>
+            <input class="form-control" id="password" type="password" th:placeholder="${f37}">
         </div>
         <div class="login-space-between">
-            <div><a href="/forgot" th:text="${f38}"></a></div>
+            <div>
+                <a href="/forgot" th:text="${f38}"></a>
+            </div>
             <div><a href="/register" th:text="${f39}"></a></div>
         </div>
-        <input type="submit" th:value="${f40}"/>
+        <div style="text-align: center">
+            <input class="btn btn-primary" type="submit" style="width: 100%"  th:value="${f40}"/>
+        </div>
     </form>
     <div class="login-bottom">
         <p th:text="${f41}"></p>

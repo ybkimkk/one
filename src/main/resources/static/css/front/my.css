@@ -9,7 +9,7 @@
     display: flex; /* 使用Flex布局 */
     justify-content: space-between; /* 子元素水平间距相等 */
     align-items: center; /* 垂直居中对齐 */
-    padding: 20px 15px; /* 上下内边距 */
+    padding: 20px 25px; /* 上下内边距 */
 
 }
 
@@ -27,7 +27,7 @@
     text-decoration: none; /* 去除下划线 */
     font-size: 16px; /* 字体大小 */
     transition: color 0.3s ease; /* 颜色过渡效果 */
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
 .header-menu a:hover {

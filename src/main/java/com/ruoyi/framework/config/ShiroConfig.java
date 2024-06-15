@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.Filter;
+
+import com.ruoyi.project.system.menu.service.IMenuService;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -281,6 +283,8 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/ruoyi.png**", "anon");
         filterChainDefinitionMap.put("/html/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/bootstrap/**", "anon");
+        filterChainDefinitionMap.put("/front/**", "anon");
         filterChainDefinitionMap.put("/docs/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
@@ -294,12 +298,24 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
         filterChainDefinitionMap.put("/admin/login", "anon,captchaValidate");
-        filterChainDefinitionMap.put("/**", "anon");
+//        filterChainDefinitionMap.put("/**", "anon");
         filterChainDefinitionMap.put("/api/**", "anon,captchaValidate");
         // 注册相关
         filterChainDefinitionMap.put("/admin/register", "anon,captchaValidate");
         // 系统权限列表
-        // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
+//         filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
+
+        //--------------------------------------------------------------------------------
+        filterChainDefinitionMap.put("/login", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/doLogin", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/register", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/doRegister", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/forgot", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/cs", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/about", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/ts", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/mail", "anon,captchaValidate");
+        //---------------------------------------------------------------------------------
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         filters.put("onlineSession", onlineSessionFilter());
@@ -311,7 +327,7 @@ public class ShiroConfig
         shiroFilterFactoryBean.setFilters(filters);
 
         // 所有请求需要认证 TODO
-//        filterChainDefinitionMap.put("/**", "user,kickout,onlineSession,syncOnlineSession");
+        filterChainDefinitionMap.put("/**", "user,kickout,onlineSession,syncOnlineSession");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;

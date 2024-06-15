@@ -7,37 +7,47 @@
 <body>
 <div layout:fragment="main">
     <div class="logo-title">
-        <p th:text="${f34}"></p>
+       <img width="200" th:src="@{/img/front/logo.png}" alt="">
     </div>
-    <div class="logo-title logo-sub-title">
-        <p th:text="${f35}"></p>
-    </div>
-    <div>
-        <div>
-            <label for="username"></label>
-            <input id="username" type="text" th:placeholder="${f36}">
+    <form action="/doRegister" method="post">
+        <div class="form-group">
+            <label for="username" th:text="${f43}"></label>
+            <input name="username" type="text" class="form-control" id="username">
         </div>
-        <div>
-            <label for="password"></label>
-            <input id="password" type="password" th:placeholder="${f37}">
+        <div class="form-group">
+            <label for="password" th:text="${f44}"></label>
+            <input name="password" id="password" class="form-control" type="password">
         </div>
-        <div>
-            <label for="password1"></label>
-            <input id="password1" type="password" th:placeholder="${f37}">
+        <div class="form-group">
+            <label for="password1" th:text="${f45}"></label>
+            <input name="password1" id="password1" class="form-control" type="password">
         </div>
-        <div class="login-space-between">
-            <div><a href="/forgot" th:text="${f38}"></a></div>
-            <div><a href="/register" th:text="${f39}"></a></div>
+        <div class="form-group">
+            <label for="name" th:text="${f46}"></label>
+            <input name="name" id="name" class="form-control" type="text">
         </div>
-        <input type="submit" th:value="${f40}"/>
-    </div>
-    <div class="login-bottom">
-        <p th:text="${f41}"></p>
-    </div>
+        <div class="form-group ">
+            <label for="sex" th:text="${f49}"></label><br>
+            <select name="sex" id="sex" class="form-control">
+                <th:block th:each="map : ${sex}">
+                    <th:block th:each="entry : ${map.entrySet()}">
+                        <option th:text="${entry.value}" th:value="${entry.key}"></option>
+                    </th:block>
+                </th:block>
+            </select>
+        </div>
+        <div class="login-button-bar">
+            <!--/*@thymesVar id="f86" type=""*/-->
+            <input type="submit" style="width: 100%;" class="btn btn-primary" th:value="${f86}"/>
+        </div>
+    </form>
 </div>
-</body>
-<script>
+<script layout:fragment="script">
 
+    $(document).ready(function () {
+        console.log(11111111)
+    });
 </script>
+</body>
 </html>
 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script th:src="@{/js/front/global.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/front/assets/js/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/front/assets/css/main.css}"/>
+    <noscript>
+        <link rel="stylesheet" th:href="@{/front/assets/css/noscript.css}"/>
+    </noscript>
+    <script th:src="@{/js/front/global.js}"></script>
+    <link rel="icon" href="data:,">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<body class="is-preload">
+[[${user}]]
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="inner">
+
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <span class="symbol"><img th:src="@{/front/images/logo.svg}" alt=""/></span><span
+                    class="title" th:text="${f34}"></span>
+            </a>
+            <!-- Nav -->
+            <nav>
+                <ul>
+                    <li><a href="#menu">Menu</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <h2>Menu</h2>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li>
+                <th:block th:if="${user}!=null">
+                    <a data-toggle="modal" href="javascript:void(0);" th:text="${user.name}"></a>
+                </th:block>
+                <th:block th:if="${user}==null">
+                    <a th:href="@{/login}" th:text="${f3}"></a>
+                </th:block>
+
+            </li>
+            <li>
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutUs">[[${f1}]]
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#tc">[[${f2}]]
+                </a>
+            </li>
+            <li><a href="generic.html">Consequat dolor</a></li>
+            <li><a href="elements.html">Elements</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner" layout:fragment="inner"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <section>
+                <h2>Get in touch</h2>
+                <form method="post" action="#">
+                    <div class="fields">
+                        <div class="field half">
+                            <input type="email" name="email" id="email" placeholder="Email"/>
+                        </div>
+                        <div class="field">
+                            <textarea name="message" id="message" placeholder="Message"></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Send" class="primary"/></li>
+                    </ul>
+                </form>
+            </section>
+
+            <ul class="copyright">
+                <li>&copy; Untitled. All rights reserved</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+
+        <!-- aboutUs  Modal -->
+        <div class="modal fade" id="aboutUs" tabindex="-1" aria-labelledby="aboutUs" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" th:text="${f19}"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p th:text="${f20}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tc  Modal -->
+        <div class="modal fade" id="tc" tabindex="-1" aria-labelledby="tc" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" th:text="${f89}"></h4>
+                    </div>
+                    <div class="modal-body" style="">
+                        <p th:text="${f90}"></p>
+                    </div>
+                    <div class="modal-footer" style="text-align: center;">
+                        <p th:text="${f91}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Scripts -->
+
+<script th:src="@{/front/assets/js/browser.min.js}"></script>
+<script th:src="@{/front/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/front/assets/js/util.js}"></script>
+<script th:src="@{/front/assets/js/main.js}"></script>
+</body>
+</html>

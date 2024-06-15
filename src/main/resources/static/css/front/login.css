@@ -20,48 +20,15 @@
     overflow: auto;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="text"], input[type="password"], textarea {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: border-color 0.3s, background-color 0.3s; /* 添加过渡效果 */
-}
-
-/* 获得焦点时的样式 */
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
-    border-color: #007bff; /* 边框变为蓝色 */
-    background-color: #f8f9fa; /* 背景轻微变亮 */
-    outline: none; /* 移除默认轮廓，如果需要的话 */
-}
-
-
-input[type="submit"], input[type="button"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover, input[type="button"]:hover {
-    background-color: #0056b3;
-}
 
 .login-space-between {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 50px;
+    margin: 20px 0;
+}
+
+.login-button-bar {
+    margin-top: 20px;
 }
 
 a:hover {

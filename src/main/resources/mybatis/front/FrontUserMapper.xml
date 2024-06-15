@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.front.mapper.FrontUserMapper">
+    <resultMap type="com.ruoyi.project.front.entity.FrontUser" id="FrontUser">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="sex" column="sex"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <sql id="base_column">
+        `id`,
+        `username`,
+        `password`,
+        `sex`,
+        `name`
+    </sql>
+
+    <sql id="table_name">`front_user`</sql>
+
+    <sql id="base_where">
+        <where>
+            <if test="arg.id != null">
+                and `id` = #{arg.id}
+            </if>
+            <if test="arg.username != null and arg.username != ''">
+                and `username` = #{arg.username}
+            </if>
+            <if test="arg.password != null and arg.password != ''">
+                and `password` = #{arg.password}
+            </if>
+            <if test="arg.sex != null and arg.sex != ''">
+                and `sex` = #{arg.sex}
+            </if>
+            <if test="arg.name != null and arg.name != ''">
+                and `name` = #{arg.name}
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByCondition" resultMap="FrontUser">
+        select
+        <include refid="base_column"/>
+        from <include refid="table_name"/>
+        <include refid="base_where"/>
+    </select>
+
+    <insert id="insertByCondition" keyProperty="id" parameterType="com.ruoyi.project.front.entity.FrontUser" useGeneratedKeys="true">
+        insert into <include refid="table_name"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="arg.id != null">
+                `id`,
+            </if>
+            <if test="arg.username != null and arg.username != ''">
+                `username`,
+            </if>
+            <if test="arg.password != null and arg.password != ''">
+                `password`,
+            </if>
+            <if test="arg.sex != null and arg.sex != ''">
+                `sex`,
+            </if>
+            <if test="arg.name != null and arg.name != ''">
+                `name`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")"  suffixOverrides=",">
+            <if test="arg.id != null">
+                #{arg.id},
+            </if>
+            <if test="arg.username != null and arg.username != ''">
+                #{arg.username},
+            </if>
+            <if test="arg.password != null and arg.password != ''">
+                #{arg.password},
+            </if>
+            <if test="arg.sex != null and arg.sex != ''">
+                #{arg.sex},
+            </if>
+            <if test="arg.name != null and arg.name != ''">
+                #{arg.name},
+            </if>
+        </trim>
+    </insert>
+</mapper>
+
