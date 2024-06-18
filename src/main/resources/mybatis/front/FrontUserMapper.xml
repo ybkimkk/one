@@ -17,6 +17,7 @@
         <result property="count" column="count"/>
         <result property="countDay" column="count_day"/>
         <result property="country" column="country"/>
+        <result property="avatar" column="avatar"/>
     </resultMap>
 
     <sql id="base_column">
@@ -35,7 +36,8 @@
         `telegram`,
         `count`,
         `count_day`,
-        `country`
+        `country`,
+        `avatar`
     </sql>
 
     <sql id="table_name">`front_user`</sql>
@@ -86,6 +88,9 @@
             </if>
             <if test="arg.country != null">
                 and `country` = #{arg.country}
+            </if>
+            <if test="arg.avatar != null">
+                and `avatar` = #{arg.avatar}
             </if>
         </where>
     </sql>
@@ -145,6 +150,9 @@
             <if test="arg.country != null">
                 `country`,
             </if>
+            <if test="arg.avatar != null">
+                `avatar`,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")"  suffixOverrides=",">
             <if test="arg.id != null">
@@ -191,6 +199,9 @@
             </if>
             <if test="arg.country != null">
                 #{arg.country},
+            </if>
+            <if test="arg.avatar != null">
+                #{arg.avatar},
             </if>
         </trim>
     </insert>
@@ -243,6 +254,9 @@
                     </if>
                     <if test="arg.country != null">
                         `country`= #{arg.country},
+                    </if>
+                    <if test="arg.avatar != null">
+                        `avatar`= #{arg.avatar},
                     </if>
                 </trim>
             </set>

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @TableName("front_user")
@@ -26,4 +26,5 @@ public class FrontUser {
     private Long count;  //
     private Date countDay;
     private String country;
+    private String avatar;
 }

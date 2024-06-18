@@ -10,6 +10,8 @@ import com.ruoyi.project.front.service.FrontUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 
@@ -65,5 +67,10 @@ public class FrontUserServiceImpl implements FrontUserService {
             frontUser1.setId(frontUser.getId());
          return    frontUserMapper.selectByCondition(frontUser1);
 
+    }
+
+    @Override
+    public List<FrontUser> getList(FrontUser frontUser) {
+        return new ArrayList<>();
     }
 }

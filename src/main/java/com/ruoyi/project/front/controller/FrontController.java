@@ -1,10 +1,16 @@
 package com.ruoyi.project.front.controller;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.ruoyi.common.utils.MessageUtils;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.file.FileUploadUtils;
+import com.ruoyi.common.utils.file.MimeTypeUtils;
+import com.ruoyi.framework.config.RuoYiConfig;
 import com.ruoyi.framework.web.controller.BaseFrontController;
 import com.ruoyi.project.front.entity.FrontUser;
+import com.ruoyi.project.front.entity.common.R;
 import com.ruoyi.project.front.entity.request.Register;
 import com.ruoyi.project.front.exception.BizException;
 import com.ruoyi.project.front.service.FrontUserService;
@@ -12,13 +18,13 @@ import com.ruoyi.project.front.util.TextFileReader;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -29,7 +35,7 @@ public class FrontController extends BaseFrontController {
     private FrontUserService frontUserService;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index() {
         return prefix + "index";
     }
 
@@ -116,6 +122,8 @@ public class FrontController extends BaseFrontController {
             FrontUser userId = getSsUser(session);
             FrontUser user = new FrontUser();
             user.setId(userId.getId());
+            long betweenDay = DateUtil.between(userId.getCountDay(), new Date(), DateUnit.DAY);
+            model.addAttribute("count", betweenDay > 30 ? 0 : 1);
             model.addAttribute("user", frontUserService.getUser(user));
             return prefix + "my";
         } catch (Exception e) {
@@ -141,6 +149,47 @@ public class FrontController extends BaseFrontController {
         }
     }
 
+    @PostMapping("/match")
+    public String match(FrontUser frontUser, HttpSession session) {
+        try {
+            FrontUser user = getSsUser(session);
+            long betweenDay = DateUtil.between(user.getCountDay(), new Date(), DateUnit.DAY);
+
+            if (betweenDay > 30) {
+                return "redirect:/my";
+            }
+            frontUser.setId(user.getId());
+            frontUser.setCountDay(new Date());
+            setSsUser(session, frontUserService.update(frontUser));
+            return "redirect:/my";
+        } catch (Exception e) {
+            return "redirect:/login";
+        }
+    }
+
+    @PostMapping("uploadImg")
+    @ResponseBody
+    public R<String> uploadImg(@RequestParam("file") MultipartFile file, HttpSession session) {
+        if (file.isEmpty()) {
+            return R.error("upload fail");
+        }
+
+        try {
+            FrontUser ssUser = getSsUser(session);
+            String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file, MimeTypeUtils.IMAGE_EXTENSION);
+            FrontUser frontUser = new FrontUser();
+            frontUser.setId(ssUser.getId());
+            frontUser.setAvatar(avatar);
+            frontUserService.update(frontUser);
+            return R.ok("success");
+
+        } catch (IOException e) {
+            return R.error("fail");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private List<Map<Integer, String>> getMaps(int num) {
         List<Map<Integer, String>> maps = new ArrayList<>();
         String string = MessageUtils.message("f." + num);
@@ -153,7 +202,6 @@ public class FrontController extends BaseFrontController {
                 maps.add(map);
             }
         }
-
         return maps;
     }
 

@@ -318,6 +318,9 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/ts", "anon,captchaValidate");
         filterChainDefinitionMap.put("/mail", "anon,captchaValidate");
         filterChainDefinitionMap.put("/updateUser", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/uploadImg", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/match", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/profile/**", "anon,captchaValidate");
         //---------------------------------------------------------------------------------
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();

@@ -38,7 +38,7 @@
             <nav>
                 <ul>
                     <li>
-                        <button role="button" data-toggle="dropdown" aria-expanded="false">
+                        <button class="primary" role="button" data-toggle="dropdown" aria-expanded="false">
                             <th:block th:each="map : ${lang}">
                                 <th:block th:each="entry : ${map.entrySet()}">
                                     <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
@@ -52,7 +52,7 @@
                             <div th:each="map : ${lang}">
                                 <th:block th:each="entry : ${map.entrySet()}">
                                     <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
-                                    <a  th:href="${'?lang='+entry.key}" style="color: black;font-size: 1.1rem">[[${entry.value}]]</a>
+                                    <a  th:href="${'?lang='+entry.key}" style="color: black;font-size: 1em">[[${entry.value}]]</a>
                                 </th:block>
                             </div>
                         </div>

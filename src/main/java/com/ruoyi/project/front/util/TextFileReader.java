@@ -14,7 +14,7 @@ public class TextFileReader {
         if (!lang.isEmpty()) {
             flag = "_" + lang;
         }
-        Resource resource = new ClassPathResource("static/txt/message_" + num + flag + ".txt");
+        Resource resource = new ClassPathResource("static/txt/messages_" + num + flag + ".txt");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
             StringBuilder content = new StringBuilder();
             String line;
