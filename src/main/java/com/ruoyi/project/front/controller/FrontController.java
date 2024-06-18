@@ -6,21 +6,20 @@ import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.web.controller.BaseFrontController;
 import com.ruoyi.project.front.entity.FrontUser;
 import com.ruoyi.project.front.entity.request.Register;
+import com.ruoyi.project.front.exception.BizException;
 import com.ruoyi.project.front.service.FrontUserService;
 import com.ruoyi.project.front.util.TextFileReader;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class FrontController extends BaseFrontController {
@@ -31,27 +30,36 @@ public class FrontController extends BaseFrontController {
 
     @GetMapping("/")
     public String index(Model model) {
-        getMessage(model, 6, 12);
-        getMessage(model, 14, 18);
         return prefix + "index";
     }
 
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model, @ModelAttribute("msg") String msg) {
+        if (StringUtils.isNotEmpty(msg)) {
+            model.addAttribute("msg", msg);
+        }
         return prefix + "login";
     }
 
     @PostMapping("/doLogin")
-    public String doLogin(Model model, HttpSession session, Register register) {
-        FrontUser login = frontUserService.login(register);
-        session.setAttribute("user", JSON.toJSONString(login));
+    public String doLogin(Register register, HttpSession session, RedirectAttributes redirectAttributes) {
+        FrontUser login;
+        try {
+            login = frontUserService.login(register);
+            if (Objects.isNull(login)) {
+                throw new BizException("account does not exist");
+            }
+        } catch (BizException e) {
+            redirectAttributes.addAttribute("msg", e.getMessage());
+            return "redirect:/login";
+        }
+        setSsUser(session, login);
         return "redirect:/";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
-        getMessage(model, 42, 87);
         List<Map<Integer, String>> sex = getMaps(76);
         List<Map<Integer, String>> hobby = getMaps(58);
         List<Map<Integer, String>> language = getMaps(63);
@@ -65,42 +73,72 @@ public class FrontController extends BaseFrontController {
 
     @PostMapping("/doRegister")
     public String doRegister(RedirectAttributes redirectAttributes, Register register) {
-        if (register.getUsername() != null && register.getPassword() != null && register.getPassword1() != null) {
-            if (register.getPassword().equals(register.getPassword1())) {
-                return "redirect:/login";
-            }
-        }
         frontUserService.register(register);
         return "redirect:/register";
     }
 
     @GetMapping("/forgot")
-    public String forgot(Model model) {
+    public String forgot() {
         return prefix + "forgot";
+    }
+
+    @PostMapping("/doForgot")
+    public String doForgot(RedirectAttributes redirectAttributes, Register register) throws BizException {
+
+        try {
+            int forgot = frontUserService.forgot(register);
+        } catch (BizException e) {
+            redirectAttributes.addAttribute("msg", e.getMessage());
+            return "redirect:/forgot";
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/cs")
     public String cs(Model model) {
-        getMessage(model, 22, 28);
         return prefix + "cs";
     }
 
     @GetMapping("/about")
-    public String about(Model model) {
+    public String about() {
         return prefix + "about";
     }
 
     @GetMapping("/ts")
     public String ts(Model model) {
-        getMessage(model, 89, 90);
         model.addAttribute("f90", TextFileReader.readFileContent("90", LocaleContextHolder.getLocale().getLanguage()));
         return prefix + "ts";
+    }
+
+    @GetMapping("/my")
+    public String my(Model model, HttpSession session) throws Exception {
+        try {
+            FrontUser userId = getSsUser(session);
+            FrontUser user = new FrontUser();
+            user.setId(userId.getId());
+            model.addAttribute("user", frontUserService.getUser(user));
+            return prefix + "my";
+        } catch (Exception e) {
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/mail")
     public String mail(Model model) throws InterruptedException {
         Thread.sleep(1000);
         return "redirect:/";
+    }
+
+    @PostMapping("/updateUser")
+    public String updateUser(FrontUser frontUser, HttpSession session) {
+        try {
+            FrontUser user = getSsUser(session);
+            frontUser.setId(user.getId());
+            setSsUser(session, frontUserService.update(frontUser));
+            return "redirect:/my";
+        } catch (Exception e) {
+            return "redirect:/login";
+        }
     }
 
     private List<Map<Integer, String>> getMaps(int num) {
@@ -119,7 +157,12 @@ public class FrontController extends BaseFrontController {
         return maps;
     }
 
+    private void setSsUser(HttpSession session, FrontUser user) {
+        session.setAttribute("user", JSON.toJSONString(user));
+    }
 
-
+    private FrontUser getSsUser(HttpSession session) throws Exception {
+        return JSON.parseObject(session.getAttribute("user").toString(), FrontUser.class);
+    }
 
 }

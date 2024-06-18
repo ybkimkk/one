@@ -7,14 +7,35 @@
         <result property="password" column="password"/>
         <result property="sex" column="sex"/>
         <result property="name" column="name"/>
+        <result property="hobby" column="hobby"/>
+        <result property="occupation" column="occupation"/>
+        <result property="birthday" column="birthday"/>
+        <result property="tel" column="tel"/>
+        <result property="line" column="line"/>
+        <result property="whatsApp" column="whats_app"/>
+        <result property="telegram" column="telegram"/>
+        <result property="count" column="count"/>
+        <result property="countDay" column="count_day"/>
+        <result property="country" column="country"/>
     </resultMap>
 
     <sql id="base_column">
-        `id`,
+        `id`
+        ,
         `username`,
         `password`,
         `sex`,
-        `name`
+        `name`,
+        `hobby`,
+        `occupation`,
+        `birthday`,
+        `tel`,
+        `line`,
+        `whats_app`,
+        `telegram`,
+        `count`,
+        `count_day`,
+        `country`
     </sql>
 
     <sql id="table_name">`front_user`</sql>
@@ -35,6 +56,36 @@
             </if>
             <if test="arg.name != null and arg.name != ''">
                 and `name` = #{arg.name}
+            </if>
+            <if test="arg.hobby != null and arg.hobby != ''">
+                and `hobby` = #{arg.hobby}
+            </if>
+            <if test="arg.occupation != null and arg.occupation != ''">
+                and `occupation` = #{arg.occupation}
+            </if>
+            <if test="arg.birthday != null">
+                and `birthday` = #{arg.birthday}
+            </if>
+            <if test="arg.tel != null and arg.tel != ''">
+                and `tel` = #{arg.tel}
+            </if>
+            <if test="arg.line != null and arg.line != ''">
+                and `line` = #{arg.line}
+            </if>
+            <if test="arg.whatsApp != null and arg.whatsApp != ''">
+                and `whats_app` = #{arg.whatsApp}
+            </if>
+            <if test="arg.telegram != null and arg.telegram != ''">
+                and `telegram` = #{arg.telegram}
+            </if>
+            <if test="arg.count != null">
+                and `count` = #{arg.count}
+            </if>
+            <if test="arg.countDay != null">
+                and `count_day` = #{arg.countDay}
+            </if>
+            <if test="arg.country != null">
+                and `country` = #{arg.country}
             </if>
         </where>
     </sql>
@@ -64,6 +115,36 @@
             <if test="arg.name != null and arg.name != ''">
                 `name`,
             </if>
+            <if test="arg.hobby != null and arg.hobby != ''">
+                `hobby`,
+            </if>
+            <if test="arg.occupation != null and arg.occupation != ''">
+                `occupation`,
+            </if>
+            <if test="arg.birthday != null">
+                `birthday`,
+            </if>
+            <if test="arg.tel != null and arg.tel != ''">
+                `tel`,
+            </if>
+            <if test="arg.line != null and arg.line != ''">
+                `line`,
+            </if>
+            <if test="arg.whatsApp != null and arg.whatsApp != ''">
+                `whats_app`,
+            </if>
+            <if test="arg.telegram != null and arg.telegram != ''">
+                `telegram`,
+            </if>
+            <if test="arg.count != null">
+                `count`,
+            </if>
+            <if test="arg.countDay != null">
+                `count_day`,
+            </if>
+            <if test="arg.country != null">
+                `country`,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")"  suffixOverrides=",">
             <if test="arg.id != null">
@@ -81,7 +162,91 @@
             <if test="arg.name != null and arg.name != ''">
                 #{arg.name},
             </if>
+            <if test="arg.hobby != null and arg.hobby != ''">
+                #{arg.hobby},
+            </if>
+            <if test="arg.occupation != null and arg.occupation != ''">
+                #{arg.occupation},
+            </if>
+            <if test="arg.birthday != null">
+                #{arg.birthday},
+            </if>
+            <if test="arg.tel != null and arg.tel != ''">
+                #{arg.tel},
+            </if>
+            <if test="arg.line != null and arg.line != ''">
+                #{arg.line},
+            </if>
+            <if test="arg.whatsApp != null and arg.whatsApp != ''">
+                #{arg.whatsApp},
+            </if>
+            <if test="arg.telegram != null and arg.telegram != ''">
+                #{arg.telegram},
+            </if>
+            <if test="arg.count != null">
+                #{arg.count},
+            </if>
+            <if test="arg.countDay != null">
+                #{arg.countDay},
+            </if>
+            <if test="arg.country != null">
+                #{arg.country},
+            </if>
         </trim>
     </insert>
+    <update id="updateByCondition">
+            update
+            <include refid="table_name"/>
+            <set>
+                <trim suffixOverrides=",">
+                    <if test="arg.id != null">
+                        `id`= #{arg.id},
+                    </if>
+                    <if test="arg.username != null and arg.username != ''">
+                        `username`= #{arg.username},
+                    </if>
+                    <if test="arg.password != null and arg.password != ''">
+                        `password`= #{arg.password},
+                    </if>
+                    <if test="arg.sex != null and arg.sex != ''">
+                        `sex`= #{arg.sex},
+                    </if>
+                    <if test="arg.name != null and arg.name != ''">
+                        `name`= #{arg.name},
+                    </if>
+                    <if test="arg.hobby != null and arg.hobby != ''">
+                        `hobby`= #{arg.hobby},
+                    </if>
+                    <if test="arg.occupation != null and arg.occupation != ''">
+                        `occupation`= #{arg.occupation},
+                    </if>
+                    <if test="arg.birthday != null">
+                        `birthday`= #{arg.birthday},
+                    </if>
+                    <if test="arg.tel != null and arg.tel != ''">
+                        `tel`= #{arg.tel},
+                    </if>
+                    <if test="arg.line != null and arg.line != ''">
+                        `line`= #{arg.line},
+                    </if>
+                    <if test="arg.whatsApp != null and arg.whatsApp != ''">
+                        `whats_app`= #{arg.whatsApp},
+                    </if>
+                    <if test="arg.telegram != null and arg.telegram != ''">
+                        `telegram`= #{arg.telegram},
+                    </if>
+                    <if test="arg.count != null">
+                        `count`= #{arg.count},
+                    </if>
+                    <if test="arg.countDay != null">
+                        `count_day`= #{arg.countDay},
+                    </if>
+                    <if test="arg.country != null">
+                        `country`= #{arg.country},
+                    </if>
+                </trim>
+            </set>
+            <where>id = #{arg.id}</where>
+    </update>
 </mapper>
 

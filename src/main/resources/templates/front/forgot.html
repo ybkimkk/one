@@ -4,27 +4,45 @@
       layout:decorator="~{/front/common/loginLayout}"
 >
 <th:block th:include="front/common/loginLayout :: head"/>
+
 <body>
 <div layout:fragment="main">
-    <p th:text="${f34}"></p>
-    <p th:text="${f35}"></p>
-    <p th:text="${f41}"></p>
-    <form action="/doLogin" method="post">
-        <div>
+
+    <div class="logo-title">
+        <img width="200" th:src="@{/img/front/logo.png}" alt="">
+    </div>
+    <form action="/doForgot" method="post" style="margin-top: 30px">
+        <div class="form-group">
             <label for="username"></label>
-            <input id="username" type="text" th:placeholder="${f36}">
+            <input class="form-control" name="username" id="username" type="text" th:placeholder="${f36}">
         </div>
-        <div>
+        <div class="form-group">
             <label for="password"></label>
-            <input id="password" type="password" th:placeholder="${f37}">
+            <input class="form-control" name="password" id="password" type="password" th:placeholder="${f37}">
         </div>
-        <div class="login-space-between">
-            <div><a href="/forgot" th:text="${f38}"></a></div>
-            <div><a href="/register" th:text="${f39}"></a></div>
+        <div class="form-group">
+            <label for="password1"></label>
+            <input class="form-control" name="password1" id="password1" type="password" th:placeholder="${f37}">
         </div>
-        <input type="submit" th:value="${f40}"/>
+        <div style="text-align: center">
+            <input class="btn btn-primary" type="submit" style="width: 100%" value="submit"/>
+            <input class="btn btn-primary" type="button" onclick="window.location.href='/'" style="width: 100%;margin-top: 15px" value="home"/>
+        </div>
     </form>
+    <div class="login-bottom">
+        <a href="/ts" th:text="${f41}"></a>
+    </div>
 </div>
+<script layout:fragment="script">
+    let msg = window.location.search.substring(1);
+    let urlSearchParams = new URLSearchParams(msg);
+    if (urlSearchParams.get("msg") !== null) {
+        alert(urlSearchParams.get("msg"));
+    }
+    /*<![CDATA[*/
+    console.log('This script will be rendered.');
+    /*]]>*/
+</script>
 </body>
 </html>
 

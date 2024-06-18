@@ -41,3 +41,8 @@
     margin-top: 20px;
 }
 
+.flex {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}

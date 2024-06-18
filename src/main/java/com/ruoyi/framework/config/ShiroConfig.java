@@ -311,10 +311,13 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/register", "anon,captchaValidate");
         filterChainDefinitionMap.put("/doRegister", "anon,captchaValidate");
         filterChainDefinitionMap.put("/forgot", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/doForgot", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/my", "anon,captchaValidate");
         filterChainDefinitionMap.put("/cs", "anon,captchaValidate");
         filterChainDefinitionMap.put("/about", "anon,captchaValidate");
         filterChainDefinitionMap.put("/ts", "anon,captchaValidate");
         filterChainDefinitionMap.put("/mail", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/updateUser", "anon,captchaValidate");
         //---------------------------------------------------------------------------------
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();

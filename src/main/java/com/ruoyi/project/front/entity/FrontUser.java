@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 @TableName("front_user")
 public class FrontUser {
@@ -14,4 +16,14 @@ public class FrontUser {
     private String password;  //
     private String sex;  //
     private String name;  //
+    private String hobby;  //
+    private String occupation;  //
+    private Date birthday;
+    private String tel;  //
+    private String line;  //
+    private String whatsApp;  //
+    private String telegram;  //
+    private Long count;  //
+    private Date countDay;
+    private String country;
 }

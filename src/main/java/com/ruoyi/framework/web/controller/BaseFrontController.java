@@ -24,6 +24,7 @@ public class BaseFrontController extends BaseController {
     public void addCommonAttributes(Model model, HttpServletRequest request, HttpSession session) {
         Locale locale = LocaleContextHolder.getLocale();
         LocaleContextHolder.setLocale(LocaleUtils.toLocale(locale.toString()));
+        getMessage(model, 1, 113);
         String[] lang = {
                 "lang.en",
                 "lang.zh_CN",
@@ -51,11 +52,8 @@ public class BaseFrontController extends BaseController {
         if (Objects.nonNull(session.getAttribute("user"))) {
             model.addAttribute("user", JSON.parseObject(session.getAttribute("user").toString(), FrontUser.class));
         }
-//        Map<String, String[]> parameterMap = request.getParameterMap();
-        getMessage(model, 34, 41);
-        getMessage(model, 1, 5);
-        getMessage(model, 19, 21);
-        getMessage(model, 88, 91);
+
+
         model.addAttribute("title", MessageUtils.message("f.8"));
         model.addAttribute("f90", TextFileReader.readFileContent("90", locale.getLanguage()));
         model.addAttribute("f13", TextFileReader.readFileContent("13", locale.getLanguage()));
