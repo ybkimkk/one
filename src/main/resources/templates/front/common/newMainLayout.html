@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title th:text="${title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Template by QBOOTSTRAP.COM"/>
+    <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive"/>
+    <meta name="author" content="QBOOTSTRAP.COM"/>
+
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" th:href="@{favicon.ico}">
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet'
+          type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Clicker+Script" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" th:href="@{/front1/css/animate.css}">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" th:href="@{/front1/css/icomoon.css}">
+    <!-- Simple Line Icons -->
+    <link rel="stylesheet" th:href="@{/front1/css/simple-line-icons.css}">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" th:href="@{/front1/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/front1/css/owl.theme.default.min.css}">
+    <!-- Magnific popup  -->
+    <link rel="stylesheet" th:href="@{/front1/css/magnific-popup.css}">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" th:href="@{/front1/css/bootstrap.css}">
+
+    <link rel="stylesheet" th:href="@{/front1/css/style.css}">
+
+    <!-- Modernizr JS -->
+    <script th:src="@{/front1/js/modernizr-2.6.2.min.js}"></script>
+    <!-- FOR IE9 below -->
+    <!--  &lt;!&ndash;[if lt IE 9]>-->
+    <script th:src="@{/front1/js/respond.min.js}"></script>
+    <!--  <![endif]&ndash;&gt;-->
+
+</head>
+<body>
+<header role="banner" id="qbootstrap-header">
+    <div class="container">
+        <!-- <div class="row"> -->
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <!-- Mobile Toggle Menu Button -->
+                <a href="#" class="js-qbootstrap-nav-toggle qbootstrap-nav-toggle" data-toggle="collapse"
+                   data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+                <a class="navbar-brand" href="index.html">Next Station</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="/"><span>Home</span></a></li>
+                    <li>
+                        <th:block th:if="${user}!=null">
+                            <a href="/my" th:text="${user.name}"></a>
+                        </th:block>
+                        <th:block th:if="${user}==null">
+                            <a th:href="@{/login}" th:text="${f3}"></a>
+                        </th:block>
+                    </li>
+                    <li>
+                        <a data-toggle="dropdown" aria-expanded="false">
+                            <th:block th:each="map : ${lang}">
+                                <th:block th:each="entry : ${map.entrySet()}">
+                                    <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
+                                    <th:block th:if="${entry.key == currentLang}">
+                                        [[${entry.value}]]
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </a>
+                        <div class="dropdown-menu" style="z-index: 100;">
+                            <div th:each="map : ${lang}">
+                                <th:block th:each="entry : ${map.entrySet()}">
+                                    <!--/*@thymesVar id="currentLang" type=" java.lang.String"*/-->
+                                    <a th:href="${'?lang='+entry.key}" style="color: black;font-size: 1em">[[${entry.value}]]</a>
+                                </th:block>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <!-- </div> -->
+    </div>
+</header>
+<div layout:fragment="main">
+
+
+</div>
+
+
+<script th:src="@{/front1/js/jquery.min.js}"></script>
+<script th:src="@{/front1/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/front1/js/bootstrap.min.js}"></script>
+<script th:src="@{/front1/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/front1/js/jquery.mb.YTPlayer.min.js}"></script>
+<script th:src="@{/front1/js/jquery.flexslider-min.js}"></script>
+<script th:src="@{/front1/js/owl.carousel.min.js}"></script>
+<script th:src="@{/front1/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/front1/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/front1/js/magnific-popup-options.js}"></script>
+<script th:src="@{/front1/js/main.js}"></script>
+</body>
+</html>

@@ -1,69 +1,287 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="~{/front/common/mainLayout}"
+      layout:decorator="~{/front/common/newMainLayout}"
 >
-<th:block th:include="front/common/mainLayout :: head"/>
+<th:block th:include="front/common/newMainLayout :: head"/>
 <body>
-<th:block th:include="front/common/mainLayout :: header"/>
-<div layout:fragment="inner">
-    <header>
-        <h1 th:text="${f12}"></h1>
-        <p th:text="${f13}"></p>
-    </header>
-    <section class="tiles">
-        <article class="style1">
-									<span class="image">
-										<img th:src="@{/front/images/m1.jpg}" alt=""/>
-									</span>
-            <a href="javascript:void(0)">
-                <h2 th:text="${f6}"></h2>
-                <div class="content">
-                    <p>Valentina 35</p>
+<div layout:fragment="main">
+    <div class="qbootstrap-hero" data-section="home">
+        <div class="qbootstrap-overlay"></div>
+        <div class="qbootstrap-cover text-center" data-stellar-background-ratio="0.5"
+             th:style="'background-image: url(' + @{/front1/images/cover_bg_3.jpg} + ');'" style="width: 100%">
+            <div class="display-t">
+                <div class="display-tc">
+                    <div class="container">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="animate-box svg-sm colored">
+                                <img th:src="@{/front1/images/logo.png}" class="svg">
+                                <h1 class="holder"><span th:text="${f8}"></span></h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </a>
-
-        </article>
-        <article class="style2">
-									<span class="image">
-										<img th:src="@{/front/images/m4.jpg}" alt=""/>
-									</span>
-            <a href="javascript:void(0)">
-                <h2 th:text="${f6}"></h2>
-                <div class="content">
-                    <p>Lily 28</p>
-                </div>
-            </a>
-
-        </article>
-        <article class="style6">
-									<span class="image">
-										<img th:src="@{/front/images/m6.jpg}" alt=""/>
-									</span>
-            <a href="javascript:void(0)">
-                <h2 th:text="${f10}"></h2>
-                <div class="content">
-                    <p>Lily 28</p>
-                </div>
-            </a>
-        </article>
-
-    </section>
-    <div style="position: relative;margin-top: 2em">
-        <img style="width: 100%" src="/front/images/map.jpg" alt="">
-        <div style="position: absolute; left: 2em;top: 5em" th:text="${f14}"></div>
-        <div style="position: absolute; bottom: 5em;right: 2em;" th:text="${f15}"></div>
-        <div style="text-align: center">
-            <input onclick="window.location.href='/my'" class="primary" type="button" th:value="${f16}"/>
+            </div>
         </div>
-
     </div>
-    <header style="margin-top: 50px">
-        <h1 th:text="${f12}"></h1>
-        <p th:text="${f17}"></p>
-    </header>
+
+    <div id="qbootstrap-gallery" data-section="gallery">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12 text-center section-heading svg-sm colored">
+                        <img th:src="@{/front1/images/flaticon/svg/005-two.svg}" class="svg">
+                        <h2>Our Selfie Photos</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup image-popup" th:href="@{/front1/images/gallery-1.jpg}">
+                            <img th:src="@{/front1/images/gallery-1.jpg}" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{/front1/images/gallery-10.jpg}">
+                            <img th:src="@{/front1/images/gallery-10.jpg}" class="img-responsive">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{/front1/images/gallery-6.jpg}">
+                            <img th:src="@{/front1/images/gallery-6.jpg}" class="img-responsive"></a>
+                    </div>
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{/front1/images/gallery-2.jpg}">
+                            <img th:src="@{/front1/images/gallery-2.jpg}" class="img-responsive"></a>
+                    </div>
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{front1/images/gallery-5.jpg}">
+                            <img th:src="@{/front1/images/gallery-5.jpg}" class="img-responsive"></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{front1/images/gallery-7.jpg}">
+                            <img th:src="@{/front1/images/gallery-7.jpg}" class="img-responsive"></a>
+                    </div>
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{front1/images/gallery-3.jpg}">
+                            <img th:src="@{/front1/images/gallery-3.jpg}" class="img-responsive"></a>
+                    </div>
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{front1/images/gallery-4.jpg}">
+                            <img th:src="@{/front1/images/gallery-4.jpg}" class="img-responsive"></a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{front1/images/gallery-8.jpg}">
+                            <img th:src="@{/front1/images/gallery-8.jpg}" class="img-responsive"></a>
+                    </div>
+                    <div class="gallery animate-box">
+                        <a class="gallery-img image-popup" th:href="@{front1/images/gallery-9.jpg}">
+                            <img th:src="@{/front1/images/gallery-9.jpg}" class="img-responsive"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qbootstrap-testimonials" class="qbootstrap-greetings" data-section="greetings"
+         data-stellar-background-ratio="0.5" th:style="'background-image: url(' + @{/front1/images/cover_bg_1.jpg} + ');'">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-12 section-heading text-center svg-sm colored">
+                    <img th:src="@{/front1/images/flaticon/svg/006-flower-bell-outline-design-variant-with-vines-and-leaves.svg}"
+                         class="svg" >
+                    <h2 th:text="${f19}"></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 animate-box">
+                    <div class="box-testimony ">
+                        <blockquote>
+                            <span class="quote"><span><i class="icon-quote-left"></i></span></span>
+                            <p>&ldquo;[[${f20}]]&rdquo;</p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qbootstrap-people" data-section="people">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12 text-center section-heading svg-sm colored">
+                        <img th:src="@{/front1/images/flaticon/svg/005-two.svg}" class="svg">
+                        <h2>Distinguished guest</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-bottom-padded-lg">
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/groom-men-1.jpg}" class="img-responsive">
+                        <h3>Ian Bill</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/groom-men-2.jpg}" class="img-responsive">
+                        <h3>George Smith</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/groom-men-3.jpg}" class="img-responsive">
+                        <h3>Brian Thompson</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/groom-men-4.jpg}" class="img-responsive">
+                        <h3>David Howard</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row animate-box row-bottom-padded-lg">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12 text-center section-heading svg-sm colored">
+                        <img th:src="@{/front1/images/logo.png}" class="svg">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/bridesmaid-1.jpg}" class="img-responsive">
+                        <h3>Angel Thomas</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/bridesmaid-2.jpg}" class="img-responsive">
+                        <h3>Kathy Shol</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/bridesmaid-3.jpg}" class="img-responsive">
+                        <h3>Rose Mel</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <div class="groom-men">
+                        <img th:src="@{/front1/images/bridesmaid-4.jpg}" class="img-responsive">
+                        <h3>Ann Hathway</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qbootstrap-started" class="qbootstrap-bg" data-section="rsvp" data-stellar-background-ratio="0.5"
+         th:style="'background-image: url(' + @{/front1/images/cover_bg_2.jpg} + ');'">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12 text-center section-heading svg-sm colored">
+                        <img th:src="@{/front1/images/flaticon/svg/005-two.svg}" class="svg">
+                        <h2 th:text="${f22}"></h2>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1 subtext">
+                                <h3 th:text="${f23}">Far far away, behind the word mountains, far from the countries Vokalia and
+                                    Consonantia,
+                                    there live the blind texts.</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row animate-box">
+                <div class="col-md-10 col-md-offset-1">
+                    <form class="form-inline">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <label for="name" class="sr-only" th:text="${f26}">Name</label>
+                                <input type="name" class="form-control" id="name" th:placeholder="${f26}">
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12"></div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label for="email" class="sr-only">Email</label>
+                                <textarea  class="form-control" id="email" th:placeholder="${f25}"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12"></div>
+                        <div class="col-md-4 col-sm-4">
+                            <button type="submit" class="btn btn-default btn-block" th:text="${f27}"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="qbootstrap-press" data-section="blog">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-12">
+                    <div class="col-md-12 text-center section-heading svg-sm colored">
+                        <img th:src="@{/front1/images/flaticon/svg/005-two.svg}" class="svg">
+                        <h2>Our scope</h2>
+                        <img th:src="@{/front1/images/map.jpg}" style="width: 100%" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qbootstrap-testimonials" class="qbootstrap-greetings" data-section="greetings"
+         data-stellar-background-ratio="0.5" th:style="'background-image: url(' + @{/front1/images/couple-1.jpg} + ');'">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-12 section-heading text-center svg-sm colored">
+                    <img th:src="@{/front1/images/flaticon/svg/006-flower-bell-outline-design-variant-with-vines-and-leaves.svg}"
+                         class="svg" >
+                    <h2 th:text="${f12}"></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 animate-box">
+                    <div class="box-testimony ">
+                        <blockquote>
+                            <span class="quote"><span><i class="icon-quote-left"></i></span></span>
+                            <p>&ldquo;[[${f13}]]&rdquo;</p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer" role="contentinfo">
+        <div class="container">
+            <div class="row row-bottom-padded-sm">
+                <div class="col-md-12">
+                    <p class="copyright text-center">&copy; 2017 <a href="/" >NEXT STATION</a>. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
-<th:block th:include="front/common/mainLayout :: footer"/>
 </body>
 </html>
 

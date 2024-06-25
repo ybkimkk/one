@@ -262,5 +262,12 @@
             </set>
             <where>id = #{arg.id}</where>
     </update>
+
+    <select id="getList" resultMap="FrontUser">
+        select
+        <include refid="base_column"/>
+        from <include refid="table_name"/>
+        <include refid="base_where"/>
+    </select>
 </mapper>
 

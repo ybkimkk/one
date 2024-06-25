@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('角色列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="role-form">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            名称：<input type="text" name="name"/>
+                        </li>
+                        <li>
+                            链接：<input type="text" name="url"/>
+                        </li>
+                        <li>
+                            删除：<select name="isDelete">
+                            <option value="2">全部</option>
+                            <option value="0">未删除</option>
+                            <option value="1">已删除</option>
+                        </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-warning" onclick="$.table.exportExcel()">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:role:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:role:remove')}]];
+    var prefix = ctx + "admin/system/front/userList";
+
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            sortName: "roleSort",
+            modalName: "文章",
+            columns: [
+                {
+                    field: 'id',
+                    visible: false
+                }, {
+                    field: 'username',
+                    visible: true,
+                    title: '用户名'
+                },
+                {
+                    field: 'sex',
+                    title: '性别'
+                },
+                {
+                    field: 'name',
+                    title: '昵称'
+                },
+                {
+                    field: 'hobby',
+                    title: '兴趣'
+                },
+                {
+                    field: 'occupation',
+                    title: '职业'
+                },
+                {
+                    field: 'birthday',
+                    title: '生日'
+                },
+                {
+                    field: 'tel',
+                    title: '电话'
+                },
+                {
+                    field: 'line',
+                    title: 'line'
+                },
+                {
+                    field: 'whats_app',
+                    title: 'whats app'
+                },
+                {
+                    field: 'telegram',
+                    title: 'telegram'
+                },
+                {
+                    field: 'country',
+                    title: '国家城市'
+                }
+            ]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>
