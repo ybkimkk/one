@@ -7,9 +7,11 @@ import com.ruoyi.project.front.entity.request.Register;
 import com.ruoyi.project.front.exception.BizException;
 import com.ruoyi.project.front.mapper.FrontUserMapper;
 import com.ruoyi.project.front.service.FrontUserService;
+import com.ruoyi.project.system.frontUser.request.FrontUserRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -47,10 +49,15 @@ public class FrontUserServiceImpl implements FrontUserService {
         if (!register.getPassword().equals(register.getPassword1())) {
             throw new BizException("Password does not match");
         }
+
         FrontUser convert = Convert.convert(FrontUser.class, register);
+        convert.setPassword(null);
         FrontUser frontUser = frontUserMapper.selectByCondition(convert);
+        if (!register.getPassword().equals(register.getPassword1())) {
+            throw new BizException("The user does not exist");
+        }
         frontUser.setPassword(register.getPassword());
-        return frontUserMapper.updateByCondition(convert);
+        return frontUserMapper.updateByCondition(frontUser);
     }
 
     @Override
@@ -70,6 +77,11 @@ public class FrontUserServiceImpl implements FrontUserService {
 
     @Override
     public List<FrontUser> getList(FrontUser frontUser) {
+        return frontUserMapper.getList(frontUser);
+    }
+
+    @Override
+    public List<FrontUser> getList(FrontUserRequest frontUser) {
         return frontUserMapper.getList(frontUser);
     }
 }

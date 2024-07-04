@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="~{/front/common/newMainLayout}"
->
-<th:block th:include="front/common/newMainLayout :: head"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <th:block th:include="front/common/homeInclude :: head"></th:block>
+</head>
 <body>
-<div layout:fragment="main">
+<header role="banner" id="qbootstrap-header">
+    <th:block th:include="front/common/homeInclude :: header"></th:block>
+</header>
+
+
+<div>
     <div class="qbootstrap-hero" data-section="home">
         <div class="qbootstrap-overlay"></div>
         <div class="qbootstrap-cover text-center" data-stellar-background-ratio="0.5"
@@ -242,6 +247,11 @@
                         <img th:src="@{/front1/images/flaticon/svg/005-two.svg}" class="svg">
                         <h2>Our scope</h2>
                         <img th:src="@{/front1/images/map.jpg}" style="width: 100%" alt="">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1 subtext">
+                                <h3 th:text="${f17}"></h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,16 +282,10 @@
         </div>
     </div>
 
-    <footer id="footer" role="contentinfo">
-        <div class="container">
-            <div class="row row-bottom-padded-sm">
-                <div class="col-md-12">
-                    <p class="copyright text-center">&copy; 2017 <a href="/" >NEXT STATION</a>. All Rights Reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
+<th:block th:include="front/common/homeInclude :: footer"></th:block>
+<th:block th:include="front/common/homeInclude :: script"></th:block>
 </body>
 </html>
+
 

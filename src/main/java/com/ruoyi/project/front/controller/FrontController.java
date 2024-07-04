@@ -2,6 +2,7 @@ package com.ruoyi.project.front.controller;
 
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.ruoyi.common.utils.MessageUtils;
 import com.ruoyi.common.utils.StringUtils;
@@ -80,7 +81,7 @@ public class FrontController extends BaseFrontController {
     @PostMapping("/doRegister")
     public String doRegister(RedirectAttributes redirectAttributes, Register register) {
         frontUserService.register(register);
-        return "redirect:/register";
+        return "redirect:/login";
     }
 
     @GetMapping("/forgot")
@@ -100,21 +101,12 @@ public class FrontController extends BaseFrontController {
         return "redirect:/login";
     }
 
-    @GetMapping("/cs")
-    public String cs(Model model) {
-        return prefix + "cs";
-    }
 
     @GetMapping("/about")
     public String about() {
         return prefix + "about";
     }
 
-    @GetMapping("/ts")
-    public String ts(Model model) {
-        model.addAttribute("f90", TextFileReader.readFileContent("90", LocaleContextHolder.getLocale().getLanguage()));
-        return prefix + "ts";
-    }
 
     @GetMapping("/my")
     public String my(Model model, HttpSession session) throws Exception {
@@ -122,7 +114,11 @@ public class FrontController extends BaseFrontController {
             FrontUser userId = getSsUser(session);
             FrontUser user = new FrontUser();
             user.setId(userId.getId());
-            long betweenDay = DateUtil.between(userId.getCountDay(), new Date(), DateUnit.DAY);
+            long betweenDay = 50;
+            if (Objects.nonNull(userId.getCountDay())){
+                 betweenDay = DateUtil.between(userId.getCountDay(), new Date(), DateUnit.DAY);
+            }
+
             model.addAttribute("count", betweenDay > 30 ? 0 : 1);
             model.addAttribute("user", frontUserService.getUser(user));
             return prefix + "my";
@@ -138,8 +134,17 @@ public class FrontController extends BaseFrontController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(FrontUser frontUser, HttpSession session) {
+    public String updateUser(FrontUser frontUser, HttpSession session, RedirectAttributes redirectAttributes) {
         try {
+            if (StrUtil.isBlank(frontUser.getLine())) {
+                redirectAttributes.addAttribute("msg", "Please fill in the contact information(line)");
+            }
+            if (StrUtil.isBlank(frontUser.getTelegram())) {
+                redirectAttributes.addAttribute("msg", "Please fill in the contact information(telegram)");
+            }
+            if (StrUtil.isBlank(frontUser.getWhatsApp())) {
+                redirectAttributes.addAttribute("msg", "Please fill in the contact information(whatsApp)");
+            }
             FrontUser user = getSsUser(session);
             frontUser.setId(user.getId());
             setSsUser(session, frontUserService.update(frontUser));

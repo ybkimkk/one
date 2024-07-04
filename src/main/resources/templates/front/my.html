@@ -1,76 +1,110 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="~{/front/common/mainLayout}"
->
-<th:block th:include="front/common/mainLayout :: head"/>
-<body>
-<th:block th:include="front/common/mainLayout :: header"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<div layout:fragment="inner">
-    <h1 th:text="${f95}"></h1>
-    <span class="image main"><img src="images/pic13.jpg" alt=""/></span>
-    <div class="flex" style="margin-bottom: 1em">
-        <div style="margin-right: 20px" onclick="upload()">
-            <img style="border-radius: 50%;height: 150px;width: 150px" th:src="${user.avatar}" alt=""/>
-            <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)"/>
-        </div>
-        <div>
-            <span style="font-size: 48px" th:text="${user.name}"></span>
+<head>
+    <th:block th:include="front/common/homeInclude :: head"></th:block>
+</head>
+<body>
+<header role="banner" id="qbootstrap-header">
+    <th:block th:include="front/common/homeInclude :: header"></th:block>
+</header>
+
+<div>
+    <div id="qbootstrap-started" class="qbootstrap-bg" data-section="rsvp" data-stellar-background-ratio="0.5"
+         th:style="'background-image: url(' + @{/front1/images/cover_bg_2.jpg} + ');'">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12 text-center section-heading svg-sm colored">
+                        <img th:src="@{/front1/images/flaticon/svg/005-two.svg}" class="svg">
+                        <h2 th:text="${f95}"></h2>
+                        <div class="row" onclick="upload()">
+                            <img style="border-radius: 50%;height: 150px;width: 150px" th:src="${user.avatar}" alt=""/>
+                            <input type="file" id="fileInput" style="display: none;"
+                                   onchange="handleFileUpload(event)"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div style="margin-bottom: 2.75em">
-        <div class="form-group">
-            <label for="username" th:text="${f94}"></label>
-            <button th:disabled="${count==1}" onclick="a()" th:text="${f93+'('+count+')'}"></button>
+    <div id="qbootstrap-press" data-section="blog">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-12  section-heading svg-sm colored">
+
+                        <form th:action="@{/updateUser}" method="post">
+                            <div class="form-group">
+                                <label for="username" th:text="${f96}"></label>
+                                <input disabled type="text" name="username" id="username" th:value="${user.username}">
+                            </div>
+                            <div class="form-group">
+                                <label for="name" th:text="${f97}"></label>
+                                <input type="text" name="name" id="name" th:value="${user.name}">
+                            </div>
+                            <div class="form-group">
+                                <label for="birthday" th:text="${f98}"></label>
+                                <input type="text" name="birthday" id="birthday" placeholder="YYYY/MM/DD"
+                                       th:value="${#dates.format(user.birthday, 'yyyy/MM/dd')}">
+                            </div>
+                            <div class="form-group">
+                                <label for="sex" th:text="${f99}"></label>
+                                <input disabled="disabled" type="text" name="sex" id="sex" th:value="${user.sex}">
+                            </div>
+                            <div class="form-group">
+                                <label for="country" th:text="${f100}"></label>
+                                <input type="text" name="country" id="country" th:value="${user.country}">
+                            </div>
+                            <div class="form-group">
+                                <label for="occupation" th:text="${f101}"></label>
+                                <input type="text" name="occupation" id="occupation" th:value="${user.occupation}">
+                            </div>
+                            <div class="form-group">
+                                <label for="line">line <span style="color: red">*</span></label>
+                                <input type="text" name="line" id="line" th:value="${user.line}">
+                            </div>
+                            <div class="form-group">
+                                <label for="whatsApp">[[${f102}]] <span style="color: red">*</span></label>
+                                <input type="text" name="whatsApp" id="whatsApp" th:value="${user.whatsApp}">
+                            </div>
+                            <div class="form-group">
+                                <label for="telegram">[[${f103}]] <span style="color: red">*</span> </label>
+                                <input type="text" name="telegram" id="telegram" th:value="${user.telegram}">
+                            </div>
+                            <div class="form-group">
+                                <label for="hobby" th:text="${f57}"></label>
+                                <input type="text" name="hobby" id="hobby" th:value="${user.hobby}">
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Role</label><br>
+                                <select name="role" id="role">
+                                    <option value="寻找者" th:text="${f75}"></option>
+                                    <option value="等待者" th:text="${f80}"></option>
+                                </select>
+                            </div>
+                            <div style="margin-top: 2em">
+                                <!--                                <div class="form-group">-->
+                                <!--                                    <button th:disabled="${count==1}" onclick="a()" th:text="${f93+'('+count+')'}"></button>-->
+                                <!--                                    <label for="username" th:text="${f94}"></label>-->
+                                <!--                                </div>-->
+                                <!--                                <input th:disabled="${count==1}" type="submit" class="btn btn-default btn-block" th:value="${f86}">-->
+                                <label th:text="${f93+'('+count+')'}"></label><br>
+                                <input th:disabled="${count==1}" type="submit" class="btn btn-default btn-block"
+                                       th:value="${f86+f94}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <form th:action="@{/updateUser}" method="post">
-        <div class="form-group">
-            <label for="username" th:text="${f96}"></label>
-            <input disabled type="text" name="username" id="username" th:value="${user.username}">
-        </div>
-        <div class="form-group">
-            <label for="name" th:text="${f97}"></label>
-            <input type="text" name="name" id="name" th:value="${user.name}">
-        </div>
-        <div class="form-group">
-            <label for="birthday" th:text="${f98}"></label>
-            <input type="text" name="birthday" id="birthday" placeholder="YYYY/MM/DD"
-                   th:value="${#dates.format(user.birthday, 'yyyy/MM/dd')}">
-        </div>
-        <div class="form-group">
-            <label for="sex" th:text="${f99}"></label>
-            <input disabled="disabled" type="text" name="sex" id="sex" th:value="${user.sex}">
-        </div>
-        <div class="form-group">
-            <label for="country" th:text="${f100}"></label>
-            <input type="text" name="country" id="country" th:value="${user.country}">
-        </div>
-        <div class="form-group">
-            <label for="occupation" th:text="${f101}"></label>
-            <input type="text" name="occupation" id="occupation" th:value="${user.occupation}">
-        </div>
-        <div class="form-group">
-            <label for="whatsApp" th:text="${f102+'*'}"></label>
-            <input type="text" name="whatsApp" id="whatsApp" th:value="${user.whatsApp}">
-        </div>
-        <div class="form-group">
-            <label for="telegram" th:text="${f103+'*'}"></label>
-            <input type="text" name="telegram" id="telegram" th:value="${user.telegram}">
-        </div>
-        <div class="form-group">
-            <label for="hobby" th:text="${f57}"></label>
-            <input type="text" name="hobby" id="hobby" th:value="${user.hobby}">
-        </div>
-        <div style="margin-top: 2em">
-            <input type="submit" class="primary" th:value="${f86}">
-        </div>
-    </form>
+
 </div>
-<th:block th:include="front/common/mainLayout :: footer"/>
-</body>
-<script layout:fragment="script">
+<th:block th:include="front/common/homeInclude :: footer"></th:block>
+<th:block th:include="front/common/homeInclude :: script"></th:block>
+<script >
     function a() {
         let telegram = $("#telegram").val();
         let whatsApp = $("#whatsApp").val();
@@ -137,6 +171,14 @@
             xhr.send(formData);
         }
     }
+
+    let msg = window.location.search.substring(1);
+    let urlSearchParams = new URLSearchParams(msg);
+    if (urlSearchParams.get("msg") !== null) {
+        alert(urlSearchParams.get("msg"));
+    }
 </script>
+</body>
 </html>
+
 

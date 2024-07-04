@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="include :: header('角色列表')"/>
 </head>
@@ -10,18 +10,11 @@
             <form id="role-form">
                 <div class="select-list">
                     <ul>
-                        <li>
-                            名称：<input type="text" name="name"/>
-                        </li>
-                        <li>
-                            链接：<input type="text" name="url"/>
-                        </li>
-                        <li>
-                            删除：<select name="isDelete">
-                            <option value="2">全部</option>
-                            <option value="0">未删除</option>
-                            <option value="1">已删除</option>
-                        </select>
+                        <li class="select-time">
+                            <label>操作时间： </label>
+                            <input type="text" class="time-input" name="startTime" id="startTime" placeholder="开始时间"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" name="endTime" id="endTime" placeholder="结束时间"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
@@ -34,7 +27,7 @@
             </form>
         </div>
         <div class="btn-group-sm" id="toolbar" role="group">
-            <a class="btn btn-warning" onclick="$.table.exportExcel()">
+            <a class="btn btn-warning" onclick="$.table.exportExcel('role-form')">
                 <i class="fa fa-download"></i> 导出
             </a>
         </div>
@@ -54,6 +47,7 @@
     $(function () {
         var options = {
             url: prefix + "/list",
+            queryParams: queryParams,
             sortName: "roleSort",
             modalName: "文章",
             columns: [
@@ -94,7 +88,7 @@
                     title: 'line'
                 },
                 {
-                    field: 'whats_app',
+                    field: 'whatsApp',
                     title: 'whats app'
                 },
                 {
@@ -104,11 +98,23 @@
                 {
                     field: 'country',
                     title: '国家城市'
+                },
+                {
+                    field: 'role',
+                    title: '角色'
                 }
             ]
         };
         $.table.init(options);
     });
+    function queryParams(params) {
+        var search = $.table.queryParams(params);
+        search.params = {
+            beginTime : beginOfTime($("#startTime").val()),
+            endTime : endOfTime($("#endTime").val())
+        };
+        return search;
+    }
 </script>
 </body>
 </html>

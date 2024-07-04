@@ -3,6 +3,7 @@ package com.ruoyi.project.front.service;
 import com.ruoyi.project.front.entity.FrontUser;
 import com.ruoyi.project.front.entity.request.Register;
 import com.ruoyi.project.front.exception.BizException;
+import com.ruoyi.project.system.frontUser.request.FrontUserRequest;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface FrontUserService {
     FrontUser getUser(FrontUser frontUser);
     FrontUser update(FrontUser frontUser);
     List<FrontUser> getList(FrontUser frontUser);
+    List<FrontUser> getList(FrontUserRequest frontUser);
 }

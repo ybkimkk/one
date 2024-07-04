@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="~{/front/common/loginLayout}"
->
-<th:block th:include="front/common/loginLayout :: head"/>
-
-<body>
-<div layout:fragment="main">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="front/common/loginInculude :: head"/>
+</head>
+<body class="flow-background">
+<div class="login-bar">
     <div class="logo-title">
         <img width="200" th:src="@{/img/front/logo.png}" alt="">
     </div>
@@ -28,7 +25,8 @@
         </div>
         <div style="text-align: center">
             <input class="btn btn-primary" type="submit" style="width: 100%" th:value="${f40}"/>
-            <input class="btn btn-primary" type="button" onclick="window.location.href='/'" style="width: 100%;margin-top: 15px" value="home"/>
+            <input class="btn btn-primary" type="button" onclick="window.location.href='/'"
+                   style="width: 100%;margin-top: 15px" value="home"/>
 
         </div>
     </form>
@@ -36,16 +34,14 @@
         <a href="/ts" th:text="${f41}"></a>
     </div>
 </div>
-<script layout:fragment="script">
+<script>
     let msg = window.location.search.substring(1);
     let urlSearchParams = new URLSearchParams(msg);
     if (urlSearchParams.get("msg") !== null) {
         alert(urlSearchParams.get("msg"));
     }
-    /*<![CDATA[*/
-    console.log('This script will be rendered.');
-    /*]]>*/
 </script>
 </body>
 </html>
+
 

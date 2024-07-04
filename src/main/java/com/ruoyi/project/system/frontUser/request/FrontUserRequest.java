@@ -1,8 +1,7 @@
-package com.ruoyi.project.front.entity;
+package com.ruoyi.project.system.frontUser.request;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.ruoyi.framework.aspectj.lang.annotation.Excel;
 import com.ruoyi.framework.web.domain.BaseEntity;
 import lombok.Data;
@@ -12,8 +11,7 @@ import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("front_user")
-public class FrontUser extends BaseEntity {
+public class FrontUserRequest extends BaseEntity {
     @TableId(type = IdType.AUTO)
     private Long id;  //
     @Excel(name = "账号")
@@ -44,6 +42,6 @@ public class FrontUser extends BaseEntity {
     private String avatar;
     @Excel(name = "角色")
     private String role;
-    @Excel(name = "注册时间")
+
     private Date registerTime;
 }
